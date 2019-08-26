@@ -1,0 +1,4 @@
+com\chocoshop\mapper\UserInfoMapper.class
+com\chocoshop\model\SysRole.class
+com\chocoshop\model\SysPermission.class
+com\chocoshop\model\UserInfo.class
