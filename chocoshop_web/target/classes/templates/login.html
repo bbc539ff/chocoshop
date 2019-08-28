@@ -1,16 +1,62 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
-    <form action="" method="post">
-        <table>
-            <tr><td>Username: </td><td><input name="username" type="text" value="admin" /></td></tr>
-            <tr><td>Password: </td><td><input name="password" type="password" value="123456" /></td></tr>
-            <tr><td colspan="2"><button>submit</button></td></tr>
-        </table>
-    </form>
-</body>
+
+   <head>
+      <meta charset="UTF-8">
+      <title>Title</title>
+
+      <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+      <link href="https://cdn.bootcss.com/twitter-bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
+      <script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js"></script>
+      <script src="https://cdn.bootcss.com/popper.js/1.15.0/umd/popper.min.js"></script>
+      <script src="https://cdn.bootcss.com/twitter-bootstrap/4.3.1/js/bootstrap.min.js"></script>
+      <style>
+         .col-center-block {
+            position: absolute;
+            top: 50%;
+            -webkit-transform: translateY(-50%);
+            -moz-transform:  translateY(-50%);
+            -ms-transform:  translateY(-50%);
+            -o-transform:  translateY(-50%);
+            transform:  translateY(-50%);
+         }
+      </style>
+         
+   </head>
+
+   <body>
+      <div class="container">
+         <div class="row">
+            <div class="offset-md-3 col-md-3 col-center-block">
+               <form action="login" method="post">
+                  <div class="form-group">
+                     <label for="username">用户名:</label>
+                     <input name="username" type="text" class="form-control" value="alan" />
+                  </div>
+                  <div class="form-group">
+                     <label for="pwd">密码:</label>
+                     <input name="password" type="password" value="123456" class="form-control" />
+                  </div>
+                  <div class="form-group">
+                     <label for="valid">验证码:</label>
+                     <img src="img/getKaptchaImage" alt="pic" />
+                     <input name="valid" type="text" class="form-control" />
+                  </div>
+                  <div class="form-check">
+                     <label class="form-check-label">
+                       <input name="valid" class="form-check-input" type="checkbox"> Remember me
+                     </label>
+                  </div>
+
+                  <button class="btn btn-primary">submit</button>
+
+               </form>
+
+               <a href="register">register</a>
+            </div>
+         </div>
+      </div>
+
+   </body>
+
 </html>
