@@ -22,4 +22,15 @@ public class UserInfoService {
     public void createUser(UserInfo userInfo){
         userInfoMapper.insert(userInfo);
     }
+    public int addUser(UserInfo userInfo){
+        return userInfoMapper.insert(userInfo);
+    }
+
+    public int deleteUser(UserInfo userInfo){
+        return userInfoMapper.delete(userInfo);
+    }
+
+    public int updateUser(UserInfo userInfo){
+        return userInfoMapper.updateByPrimaryKeySelective(userInfo);
+    }
 }

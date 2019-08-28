@@ -16,4 +16,17 @@ public class CategoryService {
     public List<Category> getAllCategory(){
         return categoryMapper.selectAll();
     }
+
+    public int addCategory(Category category){
+        return categoryMapper.insert(category);
+    }
+
+    public int deleteCategory(Category category){
+        return categoryMapper.delete(category);
+    }
+
+    public int updateCategory(Category category){
+        return categoryMapper.updateByPrimaryKeySelective(category);
+    }
+
 }
