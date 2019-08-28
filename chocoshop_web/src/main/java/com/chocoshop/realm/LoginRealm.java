@@ -16,8 +16,9 @@ import org.apache.shiro.subject.PrincipalCollection;
 import org.apache.shiro.util.ByteSource;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 
-public class MyShiroRealm extends AuthorizingRealm {
+public class LoginRealm extends AuthorizingRealm {
     @Resource
     private UserInfoService userInfoService;
     @Override
@@ -38,14 +39,11 @@ public class MyShiroRealm extends AuthorizingRealm {
     @Override
     protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken token)
             throws AuthenticationException {
-        System.out.println("MyShiroRealm.doGetAuthenticationInfo()");
-        //获取用户的输入的账号.
+
         String username = (String)token.getPrincipal();
-        System.out.println(token.getCredentials());
-        //通过username从数据库中查找 User对象，如果找到，没找到.
         //实际项目中，这里可以根据实际情况做缓存，如果不做，Shiro自己也是有时间间隔机制，2分钟内不会重复执行该方法
         UserInfo userInfo = userInfoService.findByUsername(username);
-        System.out.println("----->>userInfo="+userInfo);
+        System.out.println("realm:----->>userInfo="+userInfo);
         if(userInfo == null){
             return null;
         }

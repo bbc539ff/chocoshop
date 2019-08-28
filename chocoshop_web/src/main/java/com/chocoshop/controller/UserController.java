@@ -38,11 +38,12 @@ public class UserController {
      */
     @RequestMapping("/login")
     public String login(HttpServletRequest request, UserInfo user) {
-        System.out.println(user);
+        System.out.println("ctrl:login()"+user);
         String exception = (String) request.getAttribute("shiroLoginFailure");
-        System.out.println("exception=" + exception);
+
         String msg = "";
         if (exception != null) {
+            System.out.println("exception=" + exception);
             System.out.println("error...");
         }
         return "/login";
