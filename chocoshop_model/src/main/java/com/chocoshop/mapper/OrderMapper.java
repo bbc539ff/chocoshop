@@ -1,9 +1,8 @@
 package com.chocoshop.mapper;
 
+import com.chocoshop.model.Order;
 import org.apache.ibatis.annotations.Mapper;
-import org.springframework.stereotype.Repository;
 
-@Repository
 @Mapper
-public interface OrderMapper extends tk.mybatis.mapper.common.Mapper {
+public interface OrderMapper extends tk.mybatis.mapper.common.Mapper<Order> {
 }

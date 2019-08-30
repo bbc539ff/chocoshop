@@ -1,122 +1,129 @@
 package com.chocoshop.model;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
+import java.io.Serializable;
 import java.util.Date;
 
-public class Goods {
-    private Long gid;
-    private String gtitle;
-    private Long cid;
-    private Double gprice;
-    private Integer gnum;
-    private String imageurl;
-    private Integer gstatus;
-    private Date created;
-    private Date updated;
-    private String detail;
-    private String detail_imageurl;
+@Entity
+@Table(name="cc_goods")
+public class Goods implements Serializable {
+    @Id
+    private Long goodsId;
+    private String goodsTitle;
+    private Long categoryId;
+    private Double goodsPrice;
+    private Integer goodsNumber;
+    private String goodsImageurl;
+    private Integer goodsStatus;
+    private Date goodsCreateTime;
+    private Date goodsUpdateTime;
+    private String goodsDetail;
+    private String goodsDetailImageurl;
 
-    public Long getGid() {
-        return gid;
+    public Long getGoodsId() {
+        return goodsId;
     }
 
-    public void setGid(Long gid) {
-        this.gid = gid;
+    public void setGoodsId(Long goodsId) {
+        this.goodsId = goodsId;
     }
 
-    public String getGtitle() {
-        return gtitle;
+    public String getGoodsTitle() {
+        return goodsTitle;
     }
 
-    public void setGtitle(String gtitle) {
-        this.gtitle = gtitle;
+    public void setGoodsTitle(String goodsTitle) {
+        this.goodsTitle = goodsTitle;
     }
 
-    public Long getCid() {
-        return cid;
+    public Long getCategoryId() {
+        return categoryId;
     }
 
-    public void setCid(Long cid) {
-        this.cid = cid;
+    public void setCategoryId(Long categoryId) {
+        this.categoryId = categoryId;
     }
 
-    public Double getGprice() {
-        return gprice;
+    public Double getGoodsPrice() {
+        return goodsPrice;
     }
 
-    public void setGprice(Double gprice) {
-        this.gprice = gprice;
+    public void setGoodsPrice(Double goodsPrice) {
+        this.goodsPrice = goodsPrice;
     }
 
-    public Integer getGnum() {
-        return gnum;
+    public Integer getGoodsNumber() {
+        return goodsNumber;
     }
 
-    public void setGnum(Integer gnum) {
-        this.gnum = gnum;
+    public void setGoodsNumber(Integer goodsNumber) {
+        this.goodsNumber = goodsNumber;
     }
 
-    public String getImageurl() {
-        return imageurl;
+    public String getGoodsImageurl() {
+        return goodsImageurl;
     }
 
-    public void setImageurl(String imageurl) {
-        this.imageurl = imageurl;
+    public void setGoodsImageurl(String goodsImageurl) {
+        this.goodsImageurl = goodsImageurl;
     }
 
-    public Integer getGstatus() {
-        return gstatus;
+    public Integer getGoodsStatus() {
+        return goodsStatus;
     }
 
-    public void setGstatus(Integer gstatus) {
-        this.gstatus = gstatus;
+    public void setGoodsStatus(Integer goodsStatus) {
+        this.goodsStatus = goodsStatus;
     }
 
-    public Date getCreated() {
-        return created;
+    public Date getGoodsCreateTime() {
+        return goodsCreateTime;
     }
 
-    public void setCreated(Date created) {
-        this.created = created;
+    public void setGoodsCreateTime(Date goodsCreateTime) {
+        this.goodsCreateTime = goodsCreateTime;
     }
 
-    public Date getUpdated() {
-        return updated;
+    public Date getGoodsUpdateTime() {
+        return goodsUpdateTime;
     }
 
-    public void setUpdated(Date updated) {
-        this.updated = updated;
+    public void setGoodsUpdateTime(Date goodsUpdateTime) {
+        this.goodsUpdateTime = goodsUpdateTime;
     }
 
-    public String getDetail() {
-        return detail;
+    public String getGoodsDetail() {
+        return goodsDetail;
     }
 
-    public void setDetail(String detail) {
-        this.detail = detail;
+    public void setGoodsDetail(String goodsDetail) {
+        this.goodsDetail = goodsDetail;
     }
 
-    public String getDetail_imageurl() {
-        return detail_imageurl;
+    public String getGoodsDetailImageurl() {
+        return goodsDetailImageurl;
     }
 
-    public void setDetail_imageurl(String detail_imageurl) {
-        this.detail_imageurl = detail_imageurl;
+    public void setGoodsDetailImageurl(String goodsDetailImageurl) {
+        this.goodsDetailImageurl = goodsDetailImageurl;
     }
 
     @Override
     public String toString() {
         return "Goods{" +
-                "gid=" + gid +
-                ", gtitle='" + gtitle + '\'' +
-                ", cid=" + cid +
-                ", gprice=" + gprice +
-                ", gnum=" + gnum +
-                ", imageurl='" + imageurl + '\'' +
-                ", gstatus=" + gstatus +
-                ", created=" + created +
-                ", updated=" + updated +
-                ", detail='" + detail + '\'' +
-                ", detail_imageurl='" + detail_imageurl + '\'' +
+                "goodsId=" + goodsId +
+                ", goodsTitle='" + goodsTitle + '\'' +
+                ", categoryId=" + categoryId +
+                ", goodsPrice=" + goodsPrice +
+                ", goodsNumber=" + goodsNumber +
+                ", goodsImageurl='" + goodsImageurl + '\'' +
+                ", goodsStatus=" + goodsStatus +
+                ", goodsCreateTime=" + goodsCreateTime +
+                ", goodsUpdateTime=" + goodsUpdateTime +
+                ", goodsDetail='" + goodsDetail + '\'' +
+                ", goodsDetailImageurl='" + goodsDetailImageurl + '\'' +
                 '}';
     }
 }

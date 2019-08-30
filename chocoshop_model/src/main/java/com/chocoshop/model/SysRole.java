@@ -1,56 +1,60 @@
 package com.chocoshop.model;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.*;
 
 @Entity
-public class SysRole {
+@Table(name="cc_sys_role")
+public class SysRole implements Serializable {
     @Id@GeneratedValue
-    private Integer id; // 编号
-    private String role; // 角色标识程序中判断使用,如"admin",这个是唯一的:
-    private String description; // 角色描述,UI界面显示使用
-    private Boolean available = Boolean.FALSE; // 是否可用,如果不可用将不会添加给用户
+    private Integer roleId; // 编号
+    private String roleName; // 角色标识程序中判断使用,如"admin",这个是唯一的:
+    private Boolean roleAvailable = Boolean.FALSE; // 是否可用,如果不可用将不会添加给用户
+    private String roleDescription; // 角色描述,UI界面显示使用
+
 
     //角色 -- 权限关系：多对多关系;
     @ManyToMany(fetch= FetchType.EAGER)
-    @JoinTable(name="SysRolePermission",joinColumns={@JoinColumn(name="roleId")},inverseJoinColumns={@JoinColumn(name="permissionId")})
+    @JoinTable(name="cc_sys_role_perms",joinColumns={@JoinColumn(name="role_id")},inverseJoinColumns={@JoinColumn(name="perm_id")})
     private List<SysPermission> permissions;
 
     // 用户 - 角色关系定义;
     @ManyToMany
-    @JoinTable(name="SysUserRole",joinColumns={@JoinColumn(name="roleId")},inverseJoinColumns={@JoinColumn(name="uid")})
-    private List<UserInfo> userInfos;// 一个角色对应多个用户
+    @JoinTable(name="cc_sys_admin_role",joinColumns={@JoinColumn(name="role_id")},inverseJoinColumns={@JoinColumn(name="admin_id")})
+    private List<Admin> admins;// 一个角色对应多个用户
 
-    public Integer getId() {
-        return id;
+
+    public Integer getRoleId() {
+        return roleId;
     }
 
-    public void setId(Integer id) {
-        this.id = id;
+    public void setRoleId(Integer roleId) {
+        this.roleId = roleId;
     }
 
-    public String getRole() {
-        return role;
+    public String getRoleName() {
+        return roleName;
     }
 
-    public void setRole(String role) {
-        this.role = role;
+    public void setRoleName(String roleName) {
+        this.roleName = roleName;
     }
 
-    public String getDescription() {
-        return description;
+    public Boolean getRoleAvailable() {
+        return roleAvailable;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
+    public void setRoleAvailable(Boolean roleAvailable) {
+        this.roleAvailable = roleAvailable;
     }
 
-    public Boolean getAvailable() {
-        return available;
+    public String getRoleDescription() {
+        return roleDescription;
     }
 
-    public void setAvailable(Boolean available) {
-        this.available = available;
+    public void setRoleDescription(String roleDescription) {
+        this.roleDescription = roleDescription;
     }
 
     public List<SysPermission> getPermissions() {
@@ -61,23 +65,23 @@ public class SysRole {
         this.permissions = permissions;
     }
 
-    public List<UserInfo> getUserInfos() {
-        return userInfos;
+    public List<Admin> getAdmins() {
+        return admins;
     }
 
-    public void setUserInfos(List<UserInfo> userInfos) {
-        this.userInfos = userInfos;
+    public void setAdmins(List<Admin> admins) {
+        this.admins = admins;
     }
 
     @Override
     public String toString() {
         return "SysRole{" +
-                "id=" + id +
-                ", role='" + role + '\'' +
-                ", description='" + description + '\'' +
-                ", available=" + available +
+                "roleId=" + roleId +
+                ", roleName='" + roleName + '\'' +
+                ", roleAvailable=" + roleAvailable +
+                ", roleDescription='" + roleDescription + '\'' +
                 ", permissions=" + permissions +
-                ", userInfos=" + userInfos +
+                ", userInfos=" + admins +
                 '}';
     }
 }

@@ -1,62 +1,83 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns="http://www.w3.org/1999/xhtml">
 
    <head>
       <meta charset="UTF-8">
       <title>Title</title>
-
-      <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-      <link href="https://cdn.bootcss.com/twitter-bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
-      <script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js"></script>
-      <script src="https://cdn.bootcss.com/popper.js/1.15.0/umd/popper.min.js"></script>
-      <script src="https://cdn.bootcss.com/twitter-bootstrap/4.3.1/js/bootstrap.min.js"></script>
-      <style>
-         .col-center-block {
-            position: absolute;
-            top: 50%;
-            -webkit-transform: translateY(-50%);
-            -moz-transform:  translateY(-50%);
-            -ms-transform:  translateY(-50%);
-            -o-transform:  translateY(-50%);
-            transform:  translateY(-50%);
+      <link rel="stylesheet" type="text/css" href="/css/easyui.css">
+      <link rel="stylesheet" type="text/css" href="/css/icon.css">
+      <script type="text/javascript" src="/js/jquery.min.js"></script>
+      <script type="text/javascript" src="/js/jquery.easyui.min.js"></script>
+      <script>
+         function clearForm() {
+            $('#ff').form('clear');
          }
-      </style>
-         
+         $(document).ready(function() {
+            $("#kaptchaPicId").click(function() {
+               $("#kaptchaPicId").attr("src", "/img/kaptcha-image?rand=" + Math.random())
+            })
+         })
+      </script>
    </head>
 
    <body>
-      <div class="container">
-         <div class="row">
-            <div class="offset-md-3 col-md-3 col-center-block">
-               <form action="login" method="post">
-                  <div class="form-group">
-                     <label>用户名:</label>
-                     <input name="username" type="text" class="form-control" value="alan" />
-                  </div>
-                  <div class="form-group">
-                     <label>密码:</label>
-                     <input name="password" type="password" value="123456" class="form-control" />
-                  </div>
-                  <div class="form-group">
-                     <label>验证码:</label>
-                     <img src="img/getKaptchaImage" alt="pic" /><br />
-                     <input name="verifyCode" type="text" class="form-control" />
-                  </div>
-                  <div class="form-check">
-                     <label class="form-check-label">
-                       <input name="valid" class="form-check-input" type="checkbox"> Remember me
-                     </label>
-                  </div>
 
-                  <button class="btn btn-primary">submit</button>
+      <div id="loginPanel">
+         <div style="margin:20px 0;"></div>
+         <div class="easyui-panel" title="New Topic" style="width:400px">
+            <div style="padding:10px 60px 20px 60px">
+               <form action="/admin/login" id="ff" method="post">
+                  <table cellpadding="5">
+                     <tr>
+                        <td>用户名:</td>
+                        <td><input class="easyui-textbox" type="text" name="username" data-options="required:true" value="yh1"></input>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td>密码:</td>
+                        <td><input class="easyui-textbox" type="password" name="password" data-options="required:true" value="123456"></input>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td colspan="2">验证码: <img id="kaptchaPicId" src="/img/kaptcha-image" alt="pic" /><br /></td>
+                        <td>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td></td>
+                        <td><input class="easyui-textbox" id="kaptchaId" name="verifyCode" type="text" data-options="required:true"></input>
+                        </td>
+                     </tr>
 
+                  </table>
+                  <div style="text-align:center;padding:5px">
+                     <button class="easyui-linkbutton" type="submit">Submit</button>
+                     <a href="javascript:void(0)" class="easyui-linkbutton" onclick="clearForm()">Clear</a><br />
+                     <a href="register.html">Register</a>
+                  </div>
                </form>
 
-               <a href="register">register</a>
             </div>
          </div>
       </div>
 
+      <!--
+      	时间：2019-08-30
+      	描述：居中 panel
+      -->
+      <style type="text/css">
+         #loginPanel {
+            position: absolute;
+            width: 500;
+            height: 300;
+         }
+      </style>
+      <script>
+         var obj = $("#loginPanel"); //获得相应的Div对象  
+         var x = ($(window).width() - 500) / 2;
+         var y = ($(window).height() - 300) / 2;
+         obj.css("top", y).css("left", x);
+      </script>
    </body>
 
 </html>

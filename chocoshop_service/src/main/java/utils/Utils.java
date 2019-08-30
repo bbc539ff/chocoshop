@@ -1,4 +1,4 @@
-package com.chocoshop.utils;
+package utils;
 
 import org.apache.shiro.crypto.hash.SimpleHash;
 import org.apache.shiro.util.ByteSource;

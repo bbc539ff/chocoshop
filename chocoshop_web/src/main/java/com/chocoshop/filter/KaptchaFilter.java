@@ -8,10 +8,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebFilter("/login")
+@WebFilter("/admin/login")
 @Order(1)
 public class KaptchaFilter implements Filter {
-
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
         HttpServletRequest httpServletRequest = (HttpServletRequest) request;
@@ -25,9 +24,10 @@ public class KaptchaFilter implements Filter {
 
         String reqVerifyCode = httpServletRequest.getParameter("verifyCode");
         if(sessVerifyCode.equals(reqVerifyCode)){
-            chain.doFilter(request,response);
+            chain.doFilter(request, response);
         } else {
             ((HttpServletResponse) response).sendRedirect("login");
+            return;
         }
     }
 }

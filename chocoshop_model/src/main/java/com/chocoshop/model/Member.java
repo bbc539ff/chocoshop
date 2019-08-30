@@ -1,133 +1,140 @@
 package com.chocoshop.model;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
+import java.io.Serializable;
 import java.util.Date;
 
-public class Member {
+@Entity
+@Table(name="cc_member")
+public class Member implements Serializable {
 
-    private String muuid;
-    private String username;
-    private String password;
-    private String phone;
-    private String email;
-    private Date created;
-    private Date updated;
-    private Boolean gender;
-    private String address;
-    private Integer state;
-    private String imageurl;
-    private Double balance;
+    @Id
+    private String memberUuid;
+    private String memberUserName;
+    private String memberPassword;
+    private String memberPhone;
+    private String memberEmail;
+    private Date memberCreateTime;
+    private Date memberUpdateTime;
+    private Boolean memberGender;
+    private String memberAddress;
+    private Integer memberState;
+    private String memberImageurl;
+    private Double memberBalance;
 
-    public String getMuuid() {
-        return muuid;
+    public String getMemberUuid() {
+        return memberUuid;
     }
 
-    public void setMuuid(String muuid) {
-        this.muuid = muuid;
+    public void setMemberUuid(String memberUuid) {
+        this.memberUuid = memberUuid;
     }
 
-    public String getUsername() {
-        return username;
+    public String getMemberUserName() {
+        return memberUserName;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public void setMemberUserName(String memberUserName) {
+        this.memberUserName = memberUserName;
     }
 
-    public String getPassword() {
-        return password;
+    public String getMemberPassword() {
+        return memberPassword;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
+    public void setMemberPassword(String memberPassword) {
+        this.memberPassword = memberPassword;
     }
 
-    public String getPhone() {
-        return phone;
+    public String getMemberPhone() {
+        return memberPhone;
     }
 
-    public void setPhone(String phone) {
-        this.phone = phone;
+    public void setMemberPhone(String memberPhone) {
+        this.memberPhone = memberPhone;
     }
 
-    public String getEmail() {
-        return email;
+    public String getMemberEmail() {
+        return memberEmail;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public void setMemberEmail(String memberEmail) {
+        this.memberEmail = memberEmail;
     }
 
-    public Date getCreated() {
-        return created;
+    public Date getMemberCreateTime() {
+        return memberCreateTime;
     }
 
-    public void setCreated(Date created) {
-        this.created = created;
+    public void setMemberCreateTime(Date memberCreateTime) {
+        this.memberCreateTime = memberCreateTime;
     }
 
-    public Date getUpdated() {
-        return updated;
+    public Date getMemberUpdateTime() {
+        return memberUpdateTime;
     }
 
-    public void setUpdated(Date updated) {
-        this.updated = updated;
+    public void setMemberUpdateTime(Date memberUpdateTime) {
+        this.memberUpdateTime = memberUpdateTime;
     }
 
-    public Boolean getGender() {
-        return gender;
+    public Boolean getMemberGender() {
+        return memberGender;
     }
 
-    public void setGender(Boolean gender) {
-        this.gender = gender;
+    public void setMemberGender(Boolean memberGender) {
+        this.memberGender = memberGender;
     }
 
-    public String getAddress() {
-        return address;
+    public String getMemberAddress() {
+        return memberAddress;
     }
 
-    public void setAddress(String address) {
-        this.address = address;
+    public void setMemberAddress(String memberAddress) {
+        this.memberAddress = memberAddress;
     }
 
-    public Integer getState() {
-        return state;
+    public Integer getMemberState() {
+        return memberState;
     }
 
-    public void setState(Integer state) {
-        this.state = state;
+    public void setMemberState(Integer memberState) {
+        this.memberState = memberState;
     }
 
-    public String getImageurl() {
-        return imageurl;
+    public String getMemberImageurl() {
+        return memberImageurl;
     }
 
-    public void setImageurl(String imageurl) {
-        this.imageurl = imageurl;
+    public void setMemberImageurl(String memberImageurl) {
+        this.memberImageurl = memberImageurl;
     }
 
-    public Double getBalance() {
-        return balance;
+    public Double getMemberBalance() {
+        return memberBalance;
     }
 
-    public void setBalance(Double balance) {
-        this.balance = balance;
+    public void setMemberBalance(Double memberBalance) {
+        this.memberBalance = memberBalance;
     }
 
     @Override
     public String toString() {
         return "Member{" +
-                "muuid='" + muuid + '\'' +
-                ", username='" + username + '\'' +
-                ", password='" + password + '\'' +
-                ", phone='" + phone + '\'' +
-                ", email='" + email + '\'' +
-                ", created=" + created +
-                ", updated=" + updated +
-                ", gender=" + gender +
-                ", address='" + address + '\'' +
-                ", state=" + state +
-                ", imageurl='" + imageurl + '\'' +
-                ", balance=" + balance +
+                "memberUuid='" + memberUuid + '\'' +
+                ", memberUserName='" + memberUserName + '\'' +
+                ", memberPassword='" + memberPassword + '\'' +
+                ", memberPhone='" + memberPhone + '\'' +
+                ", memberEmail='" + memberEmail + '\'' +
+                ", memberCreateTime=" + memberCreateTime +
+                ", memberUpdateTime=" + memberUpdateTime +
+                ", memberGender=" + memberGender +
+                ", memberAddress='" + memberAddress + '\'' +
+                ", memberState=" + memberState +
+                ", memberImageurl='" + memberImageurl + '\'' +
+                ", memberBalance=" + memberBalance +
                 '}';
     }
 }

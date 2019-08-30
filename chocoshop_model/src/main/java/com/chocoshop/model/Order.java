@@ -1,132 +1,140 @@
 package com.chocoshop.model;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
+import java.io.Serializable;
 import java.util.Date;
 
-public class Order {
-    private String order_uuid;
-    private Double payment;
-    private Integer payment_type;
-    private Integer status;
-    private Date create_time;
-    private Date update_time;
-    private Date payment_time;
-    private Date consign_time;
-    private Date end_time;
-    private Date close_time;
-    private String shipping_code;
-    private String muuid;
+@Entity
+@Table(name="cc_member")
+public class Order implements Serializable {
 
-    public String getOrder_uuid() {
-        return order_uuid;
+    @Id
+    private String orderUuid;
+    private Double orderPayment;
+    private Integer orderPaymentType;
+    private Integer orderStatus;
+    private Date orderCreateTime;
+    private Date orderUpdateTime;
+    private Date orderPaymentTime;
+    private Date orderConsignTime;
+    private Date orderEndTime;
+    private Date orderCloseTime;
+    private String orderShippingCode;
+    private String memberUuid;
+
+    public String getOrderUuid() {
+        return orderUuid;
     }
 
-    public void setOrder_uuid(String order_uuid) {
-        this.order_uuid = order_uuid;
+    public void setOrderUuid(String orderUuid) {
+        this.orderUuid = orderUuid;
     }
 
-    public Double getPayment() {
-        return payment;
+    public Double getOrderPayment() {
+        return orderPayment;
     }
 
-    public void setPayment(Double payment) {
-        this.payment = payment;
+    public void setOrderPayment(Double orderPayment) {
+        this.orderPayment = orderPayment;
     }
 
-    public Integer getPayment_type() {
-        return payment_type;
+    public Integer getOrderPaymentType() {
+        return orderPaymentType;
     }
 
-    public void setPayment_type(Integer payment_type) {
-        this.payment_type = payment_type;
+    public void setOrderPaymentType(Integer orderPaymentType) {
+        this.orderPaymentType = orderPaymentType;
     }
 
-    public Integer getStatus() {
-        return status;
+    public Integer getOrderStatus() {
+        return orderStatus;
     }
 
-    public void setStatus(Integer status) {
-        this.status = status;
+    public void setOrderStatus(Integer orderStatus) {
+        this.orderStatus = orderStatus;
     }
 
-    public Date getCreate_time() {
-        return create_time;
+    public Date getOrderCreateTime() {
+        return orderCreateTime;
     }
 
-    public void setCreate_time(Date create_time) {
-        this.create_time = create_time;
+    public void setOrderCreateTime(Date orderCreateTime) {
+        this.orderCreateTime = orderCreateTime;
     }
 
-    public Date getUpdate_time() {
-        return update_time;
+    public Date getOrderUpdateTime() {
+        return orderUpdateTime;
     }
 
-    public void setUpdate_time(Date update_time) {
-        this.update_time = update_time;
+    public void setOrderUpdateTime(Date orderUpdateTime) {
+        this.orderUpdateTime = orderUpdateTime;
     }
 
-    public Date getPayment_time() {
-        return payment_time;
+    public Date getOrderPaymentTime() {
+        return orderPaymentTime;
     }
 
-    public void setPayment_time(Date payment_time) {
-        this.payment_time = payment_time;
+    public void setOrderPaymentTime(Date orderPaymentTime) {
+        this.orderPaymentTime = orderPaymentTime;
     }
 
-    public Date getConsign_time() {
-        return consign_time;
+    public Date getOrderConsignTime() {
+        return orderConsignTime;
     }
 
-    public void setConsign_time(Date consign_time) {
-        this.consign_time = consign_time;
+    public void setOrderConsignTime(Date orderConsignTime) {
+        this.orderConsignTime = orderConsignTime;
     }
 
-    public Date getEnd_time() {
-        return end_time;
+    public Date getOrderEndTime() {
+        return orderEndTime;
     }
 
-    public void setEnd_time(Date end_time) {
-        this.end_time = end_time;
+    public void setOrderEndTime(Date orderEndTime) {
+        this.orderEndTime = orderEndTime;
     }
 
-    public Date getClose_time() {
-        return close_time;
+    public Date getOrderCloseTime() {
+        return orderCloseTime;
     }
 
-    public void setClose_time(Date close_time) {
-        this.close_time = close_time;
+    public void setOrderCloseTime(Date orderCloseTime) {
+        this.orderCloseTime = orderCloseTime;
     }
 
-    public String getShipping_code() {
-        return shipping_code;
+    public String getOrderShippingCode() {
+        return orderShippingCode;
     }
 
-    public void setShipping_code(String shipping_code) {
-        this.shipping_code = shipping_code;
+    public void setOrderShippingCode(String orderShippingCode) {
+        this.orderShippingCode = orderShippingCode;
     }
 
-    public String getMuuid() {
-        return muuid;
+    public String getMemberUuid() {
+        return memberUuid;
     }
 
-    public void setMuuid(String muuid) {
-        this.muuid = muuid;
+    public void setMemberUuid(String memberUuid) {
+        this.memberUuid = memberUuid;
     }
 
     @Override
     public String toString() {
         return "Order{" +
-                "order_uuid='" + order_uuid + '\'' +
-                ", payment=" + payment +
-                ", payment_type=" + payment_type +
-                ", status=" + status +
-                ", create_time=" + create_time +
-                ", update_time=" + update_time +
-                ", payment_time=" + payment_time +
-                ", consign_time=" + consign_time +
-                ", end_time=" + end_time +
-                ", close_time=" + close_time +
-                ", shipping_code='" + shipping_code + '\'' +
-                ", muuid='" + muuid + '\'' +
+                "orderUuid='" + orderUuid + '\'' +
+                ", orderPayment=" + orderPayment +
+                ", orderPaymentType=" + orderPaymentType +
+                ", orderStatus=" + orderStatus +
+                ", orderCreateTime=" + orderCreateTime +
+                ", orderUpdateTime=" + orderUpdateTime +
+                ", orderPaymentTime=" + orderPaymentTime +
+                ", orderConsignTime=" + orderConsignTime +
+                ", orderEndTime=" + orderEndTime +
+                ", orderCloseTime=" + orderCloseTime +
+                ", orderShippingCode='" + orderShippingCode + '\'' +
+                ", memberUuid='" + memberUuid + '\'' +
                 '}';
     }
 }

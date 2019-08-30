@@ -22,7 +22,7 @@ public class KaptchaController {
     @Autowired
     DefaultKaptcha defaultKaptcha;
 
-    @RequestMapping(path = "/img/getKaptchaImage", produces = {"image/jpeg"})
+    @RequestMapping(path = "/img/kaptcha-image", produces = {"image/jpeg"})
     public void defaultKaptcha(HttpServletRequest httpServletRequest,HttpServletResponse httpServletResponse) throws Exception{
         byte[] captchaChallengeAsJpeg = null;
         ByteArrayOutputStream jpegOutputStream = new ByteArrayOutputStream();
@@ -32,6 +32,7 @@ public class KaptchaController {
             httpServletRequest.getSession().setAttribute("verifyCode", createText);
             //使用生产的验证码字符串返回一个BufferedImage对象并转为byte写入到byte数组中
             BufferedImage challenge = defaultKaptcha.createImage(createText);
+            System.out.println(createText);
             ImageIO.write(challenge, "jpg", jpegOutputStream);
         } catch (IllegalArgumentException e) {
             httpServletResponse.sendError(HttpServletResponse.SC_NOT_FOUND);

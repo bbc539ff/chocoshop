@@ -5,83 +5,86 @@ import java.io.Serializable;
 import java.util.*;
 
 @Entity
+@Table(name="cc_sys_perms")
 public class SysPermission implements Serializable {
     @Id@GeneratedValue
-    private Integer id;//主键.
-    private String name;//名称.
-    @Column(columnDefinition="enum('menu','button')")
-    private String resourceType;//资源类型，[menu|button]
-    private String url;//资源路径.
-    private String permission; //权限字符串,menu例子：role:*，button例子：role:create,role:update,role:delete,role:view
-    private Long parentId; //父编号
-    private String parentIds; //父编号列表
-    private Boolean available = Boolean.FALSE;
+    private Integer permId;
+    private Boolean permAvailable = Boolean.FALSE;;
+    private String permName;
+    private Long permParentId; //父编号
+    private String permParentIds; //父编号列表
+    private String permString; //权限字符串,menu例子：role:*，button例子：role:create,role:update,role:delete,role:view
+    private String permResourceType;
+    private String permUrl;//资源路径.
+
+
     @ManyToMany
     @JoinTable(name="SysRolePermission",joinColumns={@JoinColumn(name="permissionId")},inverseJoinColumns={@JoinColumn(name="roleId")})
     private List<SysRole> roles;
 
-    public Integer getId() {
-        return id;
+
+    public Integer getPermId() {
+        return permId;
     }
 
-    public void setId(Integer id) {
-        this.id = id;
+    public void setPermId(Integer permId) {
+        this.permId = permId;
     }
 
-    public String getName() {
-        return name;
+    public Boolean getPermAvailable() {
+        return permAvailable;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setPermAvailable(Boolean permAvailable) {
+        this.permAvailable = permAvailable;
     }
 
-    public String getResourceType() {
-        return resourceType;
+    public String getPermName() {
+        return permName;
     }
 
-    public void setResourceType(String resourceType) {
-        this.resourceType = resourceType;
+    public void setPermName(String permName) {
+        this.permName = permName;
     }
 
-    public String getUrl() {
-        return url;
+    public Long getPermParentId() {
+        return permParentId;
     }
 
-    public void setUrl(String url) {
-        this.url = url;
+    public void setPermParentId(Long permParentId) {
+        this.permParentId = permParentId;
     }
 
-    public String getPermission() {
-        return permission;
+    public String getPermParentIds() {
+        return permParentIds;
     }
 
-    public void setPermission(String permission) {
-        this.permission = permission;
+    public void setPermParentIds(String permParentIds) {
+        this.permParentIds = permParentIds;
     }
 
-    public Long getParentId() {
-        return parentId;
+    public String getPermString() {
+        return permString;
     }
 
-    public void setParentId(Long parentId) {
-        this.parentId = parentId;
+    public void setPermString(String permString) {
+        this.permString = permString;
     }
 
-    public String getParentIds() {
-        return parentIds;
+    public String getPermResourceType() {
+        return permResourceType;
     }
 
-    public void setParentIds(String parentIds) {
-        this.parentIds = parentIds;
+    public void setPermResourceType(String permResourceType) {
+        this.permResourceType = permResourceType;
     }
 
-    public Boolean getAvailable() {
-        return available;
+    public String getPermUrl() {
+        return permUrl;
     }
 
-    public void setAvailable(Boolean available) {
-        this.available = available;
+    public void setPermUrl(String permUrl) {
+        this.permUrl = permUrl;
     }
 
     public List<SysRole> getRoles() {
@@ -95,14 +98,14 @@ public class SysPermission implements Serializable {
     @Override
     public String toString() {
         return "SysPermission{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", resourceType='" + resourceType + '\'' +
-                ", url='" + url + '\'' +
-                ", permission='" + permission + '\'' +
-                ", parentId=" + parentId +
-                ", parentIds='" + parentIds + '\'' +
-                ", available=" + available +
+                "permId=" + permId +
+                ", permAvailable=" + permAvailable +
+                ", permName='" + permName + '\'' +
+                ", permParentId=" + permParentId +
+                ", permParentIds='" + permParentIds + '\'' +
+                ", permString='" + permString + '\'' +
+                ", permResourceType='" + permResourceType + '\'' +
+                ", permUrl='" + permUrl + '\'' +
                 ", roles=" + roles +
                 '}';
     }

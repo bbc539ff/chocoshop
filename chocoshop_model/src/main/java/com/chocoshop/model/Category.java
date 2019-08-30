@@ -1,40 +1,49 @@
 package com.chocoshop.model;
 
-public class Category {
-    private Long cid;
-    private String cname;
-    private Long cparent;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
+import java.io.Serializable;
 
-    public Long getCid() {
-        return cid;
+@Entity
+@Table(name="cc_goods_category")
+public class Category implements Serializable {
+
+    @Id
+    private Long categoryId;
+    private String categoryName;
+    private Long categoryParent;
+
+    public Long getCategoryId() {
+        return categoryId;
     }
 
-    public void setCid(Long cid) {
-        this.cid = cid;
+    public void setCategoryId(Long categoryId) {
+        this.categoryId = categoryId;
     }
 
-    public String getCname() {
-        return cname;
+    public String getCategoryName() {
+        return categoryName;
     }
 
-    public void setCname(String cname) {
-        this.cname = cname;
+    public void setCategoryName(String categoryName) {
+        this.categoryName = categoryName;
     }
 
-    public Long getCparent() {
-        return cparent;
+    public Long getCategoryParent() {
+        return categoryParent;
     }
 
-    public void setCparent(Long cparent) {
-        this.cparent = cparent;
+    public void setCategoryParent(Long categoryParent) {
+        this.categoryParent = categoryParent;
     }
 
     @Override
     public String toString() {
         return "Category{" +
-                "cid=" + cid +
-                ", cname='" + cname + '\'' +
-                ", cparent=" + cparent +
+                "categoryId=" + categoryId +
+                ", categoryName='" + categoryName + '\'' +
+                ", categoryParent=" + categoryParent +
                 '}';
     }
 }
