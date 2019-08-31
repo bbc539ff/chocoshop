@@ -1,5 +1,6 @@
 package com.chocoshop.filter;
 
+import com.google.code.kaptcha.Constants;
 import org.springframework.core.annotation.Order;
 
 import javax.servlet.*;
@@ -19,11 +20,11 @@ public class KaptchaFilter implements Filter {
             return;
         }
 
-        String sessVerifyCode  = (String) httpServletRequest.getSession().getAttribute("verifyCode");
-        System.out.println(sessVerifyCode);
+        String sessVerifyCode  = (String) httpServletRequest.getSession().getAttribute(Constants.KAPTCHA_SESSION_KEY);
+        System.out.println("sessVerifyCode-->"+sessVerifyCode);
 
         String reqVerifyCode = httpServletRequest.getParameter("verifyCode");
-        if(sessVerifyCode.equals(reqVerifyCode)){
+        if(sessVerifyCode!=null && sessVerifyCode.equals(reqVerifyCode)){
             chain.doFilter(request, response);
         } else {
             ((HttpServletResponse) response).sendRedirect("login");

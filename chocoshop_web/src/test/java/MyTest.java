@@ -38,7 +38,7 @@ public class MyTest {
         admin.setAdminSalt(Utils.generateSalt("123456"));
         admin.setAdminPassword(Utils.generatePwd("123456", admin.getAdminSalt()));
         admin.setAdminState(true);
-        admin.setAdminName("yh1");
+        admin.setAdminName("yh123");
         admin.setAdminPhone("13411112222");
         admin.setAdminEmail("13411112222@mail.com");
         admin.setAdminCreateTime(new Date());

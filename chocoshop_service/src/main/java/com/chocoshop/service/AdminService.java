@@ -24,17 +24,18 @@ public class AdminService {
     }
 
     public int addAdmin(Admin admin){
-        System.out.println(admin);
 
         if(admin.getAdminPassword() != null) {
             String pwd = admin.getAdminPassword();
             String salt = Utils.generateSalt(pwd);
             String newPwd = Utils.generatePwd(pwd, salt);
             admin.setAdminPassword(newPwd);
+            admin.setAdminSalt(salt);
         }
         if(admin.getAdminState() != null) admin.setAdminState(false);
         if(admin.getAdminCreateTime() != null) admin.setAdminCreateTime(new Date());
         if(admin.getAdminUpdateTime() != null) admin.setAdminUpdateTime(new Date());
+        System.out.println(admin);
         return adminMapper.insert(admin);
     }
 
@@ -44,5 +45,9 @@ public class AdminService {
 
     public int updateAdmin(Admin admin){
         return adminMapper.updateByPrimaryKeySelective(admin);
+    }
+
+    public int countAdmin(){
+        return adminMapper.selectCount(new Admin());
     }
 }

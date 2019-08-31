@@ -29,4 +29,8 @@ public class CategoryService {
         return categoryMapper.updateByPrimaryKeySelective(category);
     }
 
+    public int countCategory(){
+        return categoryMapper.selectCount(new Category());
+    }
+
 }
