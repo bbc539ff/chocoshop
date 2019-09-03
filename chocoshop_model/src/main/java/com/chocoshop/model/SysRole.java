@@ -7,7 +7,7 @@ import java.util.*;
 @Entity
 @Table(name="cc_sys_role")
 public class SysRole implements Serializable {
-    @Id@GeneratedValue
+    @Id
     private Integer roleId; // 编号
     private String roleName; // 角色标识程序中判断使用,如"admin",这个是唯一的:
     private Boolean roleAvailable; // 是否可用,如果不可用将不会添加给用户

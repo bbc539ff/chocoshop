@@ -21,7 +21,7 @@ public class KaptchaConfig {
         properties.put("kaptcha.image.height","34");
         properties.put("kaptcha.textproducer.font.size","25");
 
-        properties.put("kaptcha.noise.impl","com.google.code.kaptcha.impl.NoNoise");
+//        properties.put("kaptcha.noise.impl","com.google.code.kaptcha.impl.NoNoise");
         Config config = new Config(properties);
         DefaultKaptcha defaultKaptcha = new DefaultKaptcha();
         defaultKaptcha.setConfig(config);

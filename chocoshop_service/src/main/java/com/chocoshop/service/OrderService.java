@@ -3,9 +3,13 @@ package com.chocoshop.service;
 import com.chocoshop.mapper.OrderMapper;
 import com.chocoshop.model.Order;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
+import java.util.UUID;
 
+@Service
 public class OrderService {
     @Autowired
     OrderMapper orderMapper;
@@ -14,8 +18,19 @@ public class OrderService {
         return orderMapper.selectAll();
     }
 
+    public int countOrder(){
+        return orderMapper.selectCount(new Order());
+    }
+
     public int addOrder(Order order){
-        return orderMapper.insert(order);
+        try {
+            order.setOrderUuid(UUID.randomUUID().toString());
+            System.out.println(order);
+            return orderMapper.insert(order);
+        } catch (Exception e){
+            e.printStackTrace();
+        }
+        return 0;
     }
 
     public int deleteOrder(Order order){
@@ -23,6 +38,16 @@ public class OrderService {
     }
 
     public int updateOrder(Order order){
+        order.setOrderUpdateTime(new Date());
         return orderMapper.updateByPrimaryKeySelective(order);
+    }
+
+    public List<Order> search(Order order){
+        try {
+            return orderMapper.search(order);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return null;
     }
 }

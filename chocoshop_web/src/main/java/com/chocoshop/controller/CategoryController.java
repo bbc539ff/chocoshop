@@ -65,4 +65,13 @@ public class CategoryController {
             return "error";
         }
     }
+
+    @RequestMapping("/admin/category-info/search")
+    @ResponseBody
+    public List<Category> searchCategory(Category category){
+        System.out.println(category);
+        List<Category> categoryList = categoryService.searchResult(category);
+        System.out.println(categoryList);
+        return categoryList;
+    }
 }

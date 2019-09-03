@@ -11,7 +11,6 @@
    </head>
 
    <body class="easyui-layout">
-      <div data-options="region:'north',title:'North Title',split:true" style="height:100px;"></div>
       <div data-options="region:'east',title:'East',split:true" style="width:100px;"></div>
       <div data-options="region:'west',title:'West',split:true" style="width:210px;">
          <div id="sm" class="easyui-sidemenu" data-options="data:data,onSelect:onSelect"></div>
@@ -39,6 +38,12 @@
                }, {
                   id: 'order',
                   text: '订单管理'
+               }, {
+                  id: 'member',
+                  text: '会员管理'
+               }, {
+                  id: 'role',
+                  text: '角色管理'
                }]
             }];
             

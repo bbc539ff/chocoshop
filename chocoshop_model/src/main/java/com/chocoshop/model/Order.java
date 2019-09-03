@@ -7,7 +7,7 @@ import java.io.Serializable;
 import java.util.Date;
 
 @Entity
-@Table(name="cc_member")
+@Table(name="cc_order")
 public class Order implements Serializable {
 
     @Id

@@ -63,4 +63,13 @@ public class GoodsController {
             return "error";
         }
     }
+
+    @RequestMapping("/admin/goods-info/search")
+    @ResponseBody
+    public List<Goods> search(Goods goods){
+        System.out.println(goods);
+        List<Goods> goodsList = goodsService.search(goods);
+        System.out.println(goodsList);
+        return goodsList;
+    }
 }

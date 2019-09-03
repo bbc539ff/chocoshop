@@ -50,6 +50,14 @@ public class MyTest {
     }
 
     @Test
+    public void searchTest(){
+        Category category = new Category();
+        category.setCategoryParent(1L);
+
+        System.out.println(categoryMapper.search(category));
+    }
+
+    @Test
     public void catSelevtTest(){
         for(Category category : categoryService.getAllCategory()){
             System.out.println(category);

@@ -91,9 +91,27 @@
             $('#createTime').datetimebox('setValue', parseDate(new Date(row.goodsCreateTime)))
             $('#createTime').datetimebox('setValue', parseDate(new Date(row.goodsUpdateTime)))
          }
+         
+         // 删除
+         function doDel() {
+            var row = $('#dg').datagrid('getSelected');
+            if(row) {
+               $.ajax('/admin/goods-info/delete?goodsId='+row.goodsId, {
+                  success: function() {
+                     $.messager.alert('Warning', '操作成功！delete');
+                     $('#dg').datagrid('reload')
+                  },
+                  error: function() {
+                     $.messager.alert('Warning', '操作失败！delete');
+                  }
+               })
+            } else {
+               $.messager.alert('Warning', '请先选择！');
+            }
+         }
 
          $(function() {
-            paginationConfig('goods', initEditFn)
+            paginationConfig('goods', initEditFn, doDel)
          })
       </script>
 

@@ -70,6 +70,15 @@ public class AdminController {
         }
     }
 
+    @RequestMapping("/admin/admin-info/search")
+    @ResponseBody
+    public List<Admin> searchCategory(Admin admin){
+        System.out.println(admin);
+        List<Admin> adminList = adminService.search(admin);
+        System.out.println(adminList);
+        return adminList;
+    }
+
 
     // 主页面
     @RequestMapping("/admin/index")

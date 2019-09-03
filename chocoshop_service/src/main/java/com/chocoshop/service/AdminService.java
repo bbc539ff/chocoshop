@@ -50,4 +50,13 @@ public class AdminService {
     public int countAdmin(){
         return adminMapper.selectCount(new Admin());
     }
+
+    public List<Admin> search(Admin admin){
+        try {
+            return adminMapper.search(admin);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return null;
+    }
 }

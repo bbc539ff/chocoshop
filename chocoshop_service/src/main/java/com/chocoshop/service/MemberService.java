@@ -3,9 +3,11 @@ package com.chocoshop.service;
 import com.chocoshop.mapper.MemberMapper;
 import com.chocoshop.model.Member;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Service
 public class MemberService {
 
     @Autowired
@@ -25,5 +27,14 @@ public class MemberService {
 
     public int updateMember(Member member){
         return memberMapper.updateByPrimaryKeySelective(member);
+    }
+
+    public List<Member> search(Member member){
+        try {
+            return memberMapper.search(member);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return null;
     }
 }

@@ -33,4 +33,13 @@ public class CategoryService {
         return categoryMapper.selectCount(new Category());
     }
 
+    public List<Category> searchResult(Category category) {
+        try {
+            return categoryMapper.search(category);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return null;
+    }
+
 }

@@ -67,7 +67,7 @@
                <tr>
                   <td><span>注册时间: </span></td>
                   <td>
-                     <input class="easyui-datetimebox" id="adminCreateTime" name="adminCreateTime" data-options="required:true,showSeconds:true" style="width:150px">
+                     <input class="easyui-datetimebox" id="adminCreateTime" name="adminCreateTime" data-options="required:true,showSeconds:true" style="width:150px"></td>
                </tr>
                <tr>
                   <td><span>更新时间: </span></td>
@@ -107,9 +107,27 @@
             $('input[name=adminGender]:checked').val(row.adminGender)
             $('input[name=adminAddress]').val(row.adminAddress)
          }
+         
+         // 删除
+         function doDel() {
+            var row = $('#dg').datagrid('getSelected');
+            if(row) {
+               $.ajax('/admin/admin-info/delete?adminId='+row.adminId, {
+                  success: function() {
+                     $.messager.alert('Warning', '操作成功！delete');
+                     $('#dg').datagrid('reload')
+                  },
+                  error: function() {
+                     $.messager.alert('Warning', '操作失败！delete');
+                  }
+               })
+            } else {
+               $.messager.alert('Warning', '请先选择！');
+            }
+         }
 
          $(function() {
-            paginationConfig('admin', initEditFn)
+            paginationConfig('admin', initEditFn, doDel)
          })
       </script>
 

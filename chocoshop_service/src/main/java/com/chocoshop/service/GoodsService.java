@@ -29,4 +29,12 @@ public class GoodsService {
         return goodsMapper.updateByPrimaryKeySelective(goods);
     }
 
+    public List<Goods> search(Goods goods){
+        try {
+            return goodsMapper.search(goods);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return null;
+    }
 }
