@@ -29,7 +29,7 @@ public interface SysRoleMapper extends tk.mybatis.mapper.common.Mapper<SysRole> 
     })
     public List<SysRole> selectByPermId(Integer permId);
 
-    @Select("SELECT cc_sys_role.* FROM cc_sys_role, cc_sys_admin_role WHERE cc_sys_role.role_id = cc_sys_admin_role.role_id")
+    @Select("SELECT cc_sys_role.* FROM cc_sys_role")
     @Results({
             @Result(property ="roleId", column = "role_id"),
             @Result(property ="roleName", column = "role_name"),
@@ -65,5 +65,9 @@ public interface SysRoleMapper extends tk.mybatis.mapper.common.Mapper<SysRole> 
     })
     List<SysRole> search(SysRole sysRole);
 
+    @Insert("INSERT INTO cc_sys_role_perms VALUE(#{roleId}, #{permId})")
+    int insertPerm(@Param("roleId") Integer roleId, @Param("permId") Integer permId);
 
+    @Delete("DELETE FROM cc_sys_role_perms WHERE role_id = #{roleId}")
+    int deletePerm(@Param("roleId") Integer roleId);
 }

@@ -4,8 +4,13 @@ import com.chocoshop.mapper.MemberMapper;
 import com.chocoshop.model.Member;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
+import utils.Utils;
 
+import java.io.FileNotFoundException;
+import java.util.Date;
 import java.util.List;
+import java.util.UUID;
 
 @Service
 public class MemberService {
@@ -17,7 +22,25 @@ public class MemberService {
         return memberMapper.selectAll();
     }
 
-    public int addMember(Member member){
+    public int addMember(Member member, MultipartFile file){
+        member.setMemberUuid(UUID.randomUUID().toString());
+        if(member.getMemberPassword() != null) {
+            String pwd = member.getMemberPassword();
+            String salt = Utils.generateSalt(pwd);
+            String newPwd = Utils.generatePwd(pwd, salt);
+            member.setMemberPassword(newPwd);
+            member.setMemberSalt(salt);
+        }
+
+        // set imgurl
+
+        String path = Utils.uploadSingle(file, "/upload/member/member_image/", member.getMemberUuid());
+        member.setMemberImageurl(path);
+
+
+        if(member.getMemberState() != null) member.setMemberState(0);
+        if(member.getMemberCreateTime() != null) member.setMemberCreateTime(new Date());
+        if(member.getMemberUpdateTime() != null) member.setMemberUpdateTime(new Date());
         return memberMapper.insert(member);
     }
 
@@ -25,8 +48,27 @@ public class MemberService {
         return memberMapper.delete(member);
     }
 
-    public int updateMember(Member member){
-        return memberMapper.updateByPrimaryKeySelective(member);
+    public int updateMember(Member member, MultipartFile file){
+        if(member.getMemberPassword() != null) {
+            String pwd = member.getMemberPassword();
+            String salt = Utils.generateSalt(pwd);
+            String newPwd = Utils.generatePwd(pwd, salt);
+            member.setMemberPassword(newPwd);
+            member.setMemberSalt(salt);
+        }
+        // set imgurl
+        String path = Utils.uploadSingle(file, "/upload/member/member_image", member.getMemberUuid());
+        member.setMemberImageurl(path);
+
+        member.setMemberUpdateTime(new Date());
+        System.out.println(member);
+        int returnVal = 0;
+        try{
+            returnVal = memberMapper.updateByPrimaryKeySelective(member);
+        } catch (Exception e){
+            e.printStackTrace();
+        }
+        return returnVal;
     }
 
     public List<Member> search(Member member){

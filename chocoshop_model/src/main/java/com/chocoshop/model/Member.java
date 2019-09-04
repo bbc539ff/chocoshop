@@ -13,6 +13,7 @@ public class Member implements Serializable {
     @Id
     private String memberUuid;
     private String memberUserName;
+    private String memberSalt;
     private String memberPassword;
     private String memberPhone;
     private String memberEmail;
@@ -38,6 +39,14 @@ public class Member implements Serializable {
 
     public void setMemberUserName(String memberUserName) {
         this.memberUserName = memberUserName;
+    }
+
+    public String getMemberSalt() {
+        return memberSalt;
+    }
+
+    public void setMemberSalt(String memberSalt) {
+        this.memberSalt = memberSalt;
     }
 
     public String getMemberPassword() {
@@ -125,6 +134,7 @@ public class Member implements Serializable {
         return "Member{" +
                 "memberUuid='" + memberUuid + '\'' +
                 ", memberUserName='" + memberUserName + '\'' +
+                ", memberSalt='" + memberSalt + '\'' +
                 ", memberPassword='" + memberPassword + '\'' +
                 ", memberPhone='" + memberPhone + '\'' +
                 ", memberEmail='" + memberEmail + '\'' +

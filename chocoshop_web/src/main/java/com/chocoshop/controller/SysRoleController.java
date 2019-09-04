@@ -41,8 +41,8 @@ public class SysRoleController {
 
     @RequestMapping("/admin/role-info/update")
     @ResponseBody
-    public String updateSysRole(SysRole sysRole){
-        if(sysRoleService.updateSysRole(sysRole) == 1){
+    public String updateSysRole(SysRole sysRole, String permIds){
+        if(sysRoleService.updateSysRole(sysRole, permIds) == 1){
             return "success";
         } else{
             return "error";
@@ -51,8 +51,8 @@ public class SysRoleController {
 
     @RequestMapping("/admin/role-info/add")
     @ResponseBody
-    public String addSysRole(SysRole sysRole, List<Integer> permId){
-        if(sysRoleService.addSysRole(sysRole) == 1){
+    public String addSysRole(SysRole sysRole, String permId){
+        if(sysRoleService.addSysRole(sysRole, permId) == 1){
             return "success";
         } else{
             return "error";

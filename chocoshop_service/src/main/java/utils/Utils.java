@@ -2,12 +2,43 @@ package utils;
 
 import org.apache.shiro.crypto.hash.SimpleHash;
 import org.apache.shiro.util.ByteSource;
+import org.springframework.util.ResourceUtils;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.Date;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class Utils {
+
+    public static String uploadSingle(MultipartFile file, String pathString, String fileName) {
+        if(!file.isEmpty() && file.getContentType().split("/")[0].equals("image")){
+
+            try {
+                String imgUrlPrefix = pathString;
+                String imgUrlSuffix = fileName + "." + file.getContentType().split("/")[1];
+
+                File upload = new File(ResourceUtils.getURL("classpath:").getPath(), "/static"+pathString);
+                if(!upload.exists()) upload.mkdirs();
+                String UPLOAD_FOLDER = upload.getAbsolutePath();
+                String fileFullPath = UPLOAD_FOLDER + "/" + imgUrlSuffix;
+                byte[] bytes = file.getBytes();
+                Path path = Paths.get(fileFullPath);
+                System.out.println(path.toAbsolutePath().toString());
+                Files.write(path, bytes);
+                return imgUrlPrefix+"/"+imgUrlSuffix;
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        return null;
+    }
+
     /**
      * 盐值为md5(pwd+date) 2次
      * @param pwd

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+
+   <head>
+      <meta charset="UTF-8">
+      <title>Title</title>
+   </head>
+
+   <body>
+      <form id="formAddEdit" method="post" enctype="multipart/form-data">
+         <input type="text" name="username" />
+         <input type="file" id="file" name="file" />
+         <button onclick="func()">submit</button>
+      </form>
+
+      <script>
+         function func() {
+            $.ajax({
+               url: '/upload',
+               type: 'POST',
+               cache: false,
+               data: new FormData($('#file')[0]),
+               processData: false,
+               contentType: false
+            });
+         }
+      </script>
+   </body>
+
+</html>
