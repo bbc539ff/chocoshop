@@ -15,20 +15,19 @@ import org.apache.shiro.subject.PrincipalCollection;
 import org.apache.shiro.util.ByteSource;
 
 import javax.annotation.Resource;
+import javax.servlet.http.Cookie;
 
 public class LoginRealm extends AuthorizingRealm {
     @Resource
     private AdminService adminService;
     @Override
     protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principals) {
-        System.out.println("权限配置-->MyShiroRealm.doGetAuthorizationInfo()");
         SimpleAuthorizationInfo authorizationInfo = new SimpleAuthorizationInfo();
         Admin admin = (Admin)principals.getPrimaryPrincipal();
         for(SysRole role: admin.getRoleList()){
             authorizationInfo.addRole(role.getRoleName());
             for(SysPermission p:role.getPermissions()){
                 authorizationInfo.addStringPermission(p.getPermString());
-                System.out.println("Perm-->"+p.getPermString());
             }
         }
         return authorizationInfo;
@@ -40,7 +39,7 @@ public class LoginRealm extends AuthorizingRealm {
             throws AuthenticationException {
 
         String adminName = (String)token.getPrincipal();
-        //实际项目中，这里可以根据实际情况做缓存，如果不做，Shiro自己也是有时间间隔机制，2分钟内不会重复执行该方法
+
         Admin admin = adminService.findByAdminName(adminName);
         System.out.println("realm:----->>adminInfo="+ admin);
         if(admin == null){

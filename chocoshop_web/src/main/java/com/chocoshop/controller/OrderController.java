@@ -3,6 +3,7 @@ package com.chocoshop.controller;
 import com.chocoshop.model.Order;
 import com.chocoshop.service.OrderService;
 import com.github.pagehelper.PageHelper;
+import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,22 +19,25 @@ public class OrderController {
     @Autowired
     OrderService orderService;
 
+    @RequiresPermissions({"order:view"})
     @RequestMapping("/admin/order-info/index")
     public String index(){
         return "order_info";
     }
 
+    @RequiresPermissions({"order:view"})
     @RequestMapping("/admin/order-info/list")
     @ResponseBody
-    public Map<String, Object> adminList(int page, int rows){
+    public Map<String, Object> orderList(int page, int rows){
         PageHelper.startPage(page, rows);
-        List<Order> categoryList = orderService.showAllOrders();
+        List<Order> orderList = orderService.showAllOrders();
         Map<String, Object> map = new HashMap<>();
         map.put("total", orderService.countOrder());
-        map.put("rows", categoryList);
+        map.put("rows", orderList);
         return map;
     }
 
+    @RequiresPermissions({"order:view", "order:add"})
     @RequestMapping("/admin/order-info/add")
     @ResponseBody
     public String add(Order order){
@@ -44,6 +48,7 @@ public class OrderController {
         }
     }
 
+    @RequiresPermissions({"order:view", "order:update"})
     @RequestMapping("/admin/order-info/update")
     @ResponseBody
     public String update(Order order){
@@ -54,6 +59,7 @@ public class OrderController {
         }
     }
 
+    @RequiresPermissions({"order:view", "order:delete"})
     @RequestMapping("/admin/order-info/delete")
     @ResponseBody
     public String delete(String orderUuid){
@@ -66,6 +72,7 @@ public class OrderController {
         }
     }
 
+    @RequiresPermissions({"order:view"})
     @RequestMapping("/admin/order-info/search")
     @ResponseBody
     public List<Order> searchCategory(Order order){

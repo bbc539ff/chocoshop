@@ -2,9 +2,12 @@ package com.chocoshop.controller;
 
 import com.chocoshop.model.Admin;
 import com.chocoshop.service.AdminService;
+import com.chocoshop.service.SysRoleService;
 import com.github.pagehelper.PageHelper;
+import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
@@ -19,7 +22,11 @@ public class AdminController {
     @Autowired
     AdminService adminService;
 
+    @Autowired
+    SysRoleService sysRoleService;
+
     // 管理员信息查看
+    @RequiresPermissions({"admin:view"})
     @RequestMapping("/admin/admin-info/index")
     public String adminInfo(){
         return "admin_info";
@@ -27,6 +34,7 @@ public class AdminController {
 
     // 管理员信息查询（json）
     @RequestMapping("/admin/admin-info/list")
+    @RequiresPermissions({"admin:view"})
     @ResponseBody
     public Map<String, Object> adminList(int page, int rows){
         PageHelper.startPage(page, rows);
@@ -37,27 +45,32 @@ public class AdminController {
         return map;
     }
 
+    @RequiresPermissions({"admin:view", "admin:add"})
     @RequestMapping("/admin/admin-info/add")
     @ResponseBody
-    public String add(Admin admin){
+    public String add(Admin admin, String roleId){
         System.out.println(admin);
         if(adminService.addAdmin(admin) == 1){
+            sysRoleService.addRoleToAdmin(roleId, admin.getAdminId());
             return "success";
         } else{
             return "error";
         }
     }
 
+    @RequiresPermissions({"admin:view", "admin:update"})
     @RequestMapping("/admin/admin-info/update")
     @ResponseBody
-    public String update(Admin admin, Model model){
+    public String update(Admin admin, String roleId){
         if(adminService.updateAdmin(admin) == 1){
+            sysRoleService.addRoleToAdmin(roleId, admin.getAdminId());
             return "success";
         } else{
             return "error";
         }
     }
 
+    @RequiresPermissions({"admin:view", "admin:delete"})
     @RequestMapping("/admin/admin-info/delete")
     @ResponseBody
     public String delete(Integer adminId){
@@ -70,6 +83,7 @@ public class AdminController {
         }
     }
 
+    @RequiresPermissions({"admin:view"})
     @RequestMapping("/admin/admin-info/search")
     @ResponseBody
     public List<Admin> searchCategory(Admin admin){

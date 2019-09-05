@@ -8,14 +8,19 @@
       <link rel="stylesheet" type="text/css" href="/css/icon.css">
       <script type="text/javascript" src="/js/jquery.min.js"></script>
       <script type="text/javascript" src="/js/jquery.easyui.min.js"></script>
+      <script type="text/javascript" src="/js/js.cookie-2.2.1.min.js"></script>
    </head>
 
    <body class="easyui-layout">
-      <div data-options="region:'east',title:'East',split:true" style="width:100px;"></div>
-      <div data-options="region:'west',title:'West',split:true" style="width:210px;">
+      <div data-options="region:'north'" style="height:50px;background: white;">
+         <span>巧克力专营后台</span>
+         <span style="float:right;">巧克力专营</span>
+      </div>
+      <div data-options="region:'east'" style="width:100px;"></div>
+      <div data-options="region:'west'" style="width:200px;">
          <div id="sm" class="easyui-sidemenu" data-options="data:data,onSelect:onSelect"></div>
       </div>
-      <div data-options="region:'center',title:'center title'" style="padding:5px;background:#eee;">
+      <div data-options="region:'center'" style="background:#eee;">
          <div id="div" style="width: 100%; height: 100%;margin: 0 0;">
             <iframe id="main" src="/admin/admin-info/index" style="width: 100%; height: 100%;"></iframe>
          </div>
@@ -23,7 +28,7 @@
       </div>
       <script type="text/javascript">
             var data = [{
-               text: 'Item1',
+               text: '模块',
                iconCls: 'icon-sum',
                state: 'open',
                children: [{
@@ -52,6 +57,8 @@
                $('#main').remove()
                $("#div").append('<iframe id="main" src="/admin/'+item.id+'-info/index" style="width: 100%; height: 100%;"></iframe>')
             }
+            
+            console.log(Cookies.get('name'))
          </script>
    </body>
 

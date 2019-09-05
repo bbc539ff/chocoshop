@@ -1,8 +1,10 @@
 package com.chocoshop.controller;
 
 import com.chocoshop.model.SysRole;
+import com.chocoshop.service.SysPermissionService;
 import com.chocoshop.service.SysRoleService;
 import com.github.pagehelper.PageHelper;
+import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,11 +20,13 @@ public class SysRoleController {
     @Autowired
     SysRoleService sysRoleService;
 
+    @RequiresPermissions({"role:view"})
     @RequestMapping("/admin/role-info/index")
     public String roleIndex(){
         return "role_info";
     }
 
+    @RequiresPermissions({"role:view"})
     @RequestMapping("/admin/role-info/list")
     @ResponseBody
     public Map<String, Object> roleList(int page, int rows){
@@ -31,7 +35,7 @@ public class SysRoleController {
             PageHelper.startPage(page, rows);
             List<SysRole> sysRoleList = sysRoleService.showAllRole();
 
-            map.put("total", sysRoleList.size());
+            map.put("total", sysRoleService.countSysRole());
             map.put("rows", sysRoleList);
         } catch (Exception e){
             e.printStackTrace();
@@ -39,6 +43,7 @@ public class SysRoleController {
         return map;
     }
 
+    @RequiresPermissions({"role:view", "role:update"})
     @RequestMapping("/admin/role-info/update")
     @ResponseBody
     public String updateSysRole(SysRole sysRole, String permIds){
@@ -49,16 +54,18 @@ public class SysRoleController {
         }
     }
 
+    @RequiresPermissions({"role:view", "role:add"})
     @RequestMapping("/admin/role-info/add")
     @ResponseBody
-    public String addSysRole(SysRole sysRole, String permId){
-        if(sysRoleService.addSysRole(sysRole, permId) == 1){
+    public String addSysRole(SysRole sysRole, String permIds){
+        if(sysRoleService.addSysRole(sysRole, permIds) == 1){
             return "success";
         } else{
             return "error";
         }
     }
 
+    @RequiresPermissions({"role:view", "role:delete"})
     @RequestMapping("/admin/role-info/delete")
     @ResponseBody
     public String deleteCategory(SysRole sysRole){
@@ -69,6 +76,7 @@ public class SysRoleController {
         }
     }
 
+    @RequiresPermissions({"role:view"})
     @RequestMapping("/admin/role-info/search")
     @ResponseBody
     public List<SysRole> search(SysRole sysRole){

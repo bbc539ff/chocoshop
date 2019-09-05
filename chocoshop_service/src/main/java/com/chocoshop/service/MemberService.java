@@ -79,4 +79,8 @@ public class MemberService {
         }
         return null;
     }
+
+    public int countMember(){
+        return memberMapper.selectCount(new Member());
+    }
 }

@@ -19,13 +19,13 @@
             <tr>
                <th field="goodsId">ID</th>
                <th field="goodsTitle">标题</th>
-               <th field="categoryId">分类</th>
+               <th field="categoryId" formatter="categoryIdFormatter">分类</th>
                <th field="goodsPrice">价格</th>
                <th field="goodsNumber">库存</th>
                <th field="goodsImageurl">图片</th>
-               <th field="goodsStatus">状态</th>
-               <th field="goodsCreateTime">创建时间</th>
-               <th field="goodsUpdateTime">更新时间</th>
+               <th field="goodsStatus" formatter="goodsStatusFormatter">状态</th>
+               <th field="goodsCreateTime" formatter="dateFormatter">创建时间</th>
+               <th field="goodsUpdateTime" formatter="dateFormatter">更新时间</th>
             </tr>
          </thead>
       </table>
@@ -54,7 +54,7 @@
                </tr>
                <tr>
                   <td><span>图片: </span></td>
-                  <td><input class="textbox" name="goodsImageurl"></td>
+                  <td><input class="easyui-filebox" name="files" multiple /></td>
                </tr>
                <tr>
                   <td><span>状态: </span></td>
@@ -109,6 +109,29 @@
                $.messager.alert('Warning', '请先选择！');
             }
          }
+         
+         // 显示分类
+         var categoryMap = new Map()
+         $.ajax({
+         	type:"get",
+         	url:"/admin/category-info/list?page=1&rows=99999999",
+         	async:true,
+         	success: function(data){
+         	   for(var i = 0;i<data.rows.length;i++){
+         	      categoryMap.set(data.rows[i].categoryId, data.rows[i])
+         	   }
+         	}
+         });
+         
+         function categoryIdFormatter(value, index, row){
+            return categoryMap.get(value).categoryName
+         }
+         
+         function goodsStatusFormatter(value, index, row){
+            if(value == 0) return '下架'
+            if(value == 1) return '在售'
+         }
+         
 
          $(function() {
             paginationConfig('goods', initEditFn, doDel)

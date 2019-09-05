@@ -1,5 +1,6 @@
 package com.chocoshop.mapper;
 
+import com.chocoshop.model.Admin;
 import com.chocoshop.model.SysRole;
 import org.apache.ibatis.annotations.*;
 
@@ -70,4 +71,10 @@ public interface SysRoleMapper extends tk.mybatis.mapper.common.Mapper<SysRole> 
 
     @Delete("DELETE FROM cc_sys_role_perms WHERE role_id = #{roleId}")
     int deletePerm(@Param("roleId") Integer roleId);
+
+    @Insert("INSERT INTO cc_sys_admin_role VALUE (#{roleId}, #{adminId})")
+    int addRoleToAdmin(Integer roleId, Integer adminId);
+
+    @Insert("DELETE FROM cc_sys_admin_role WHERE admin_id = #{adminId}")
+    int deleteRoleFromAdmin(Integer adminId);
 }

@@ -7,7 +7,7 @@ import java.util.*;
 @Entity
 @Table(name="cc_sys_perms")
 public class SysPermission implements Serializable {
-    @Id@GeneratedValue
+    @Id
     private Integer permId;
     private Boolean permAvailable = Boolean.FALSE;;
     private String permName;

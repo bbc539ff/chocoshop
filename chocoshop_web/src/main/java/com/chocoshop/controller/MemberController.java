@@ -2,6 +2,8 @@ package com.chocoshop.controller;
 
 import com.chocoshop.model.Member;
 import com.chocoshop.service.MemberService;
+import com.github.pagehelper.PageHelper;
+import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.apache.tomcat.util.http.fileupload.FileItem;
 import org.apache.tomcat.util.http.fileupload.disk.DiskFileItemFactory;
 import org.apache.tomcat.util.http.fileupload.servlet.ServletFileUpload;
@@ -25,24 +27,34 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Controller
 public class MemberController {
     @Autowired
     public MemberService memberService;
 
+    @RequiresPermissions({"member:view"})
     @GetMapping("/admin/member-info/list")
     @ResponseBody
-    public List<Member> showAllGoods(Model model){
-        return memberService.showAllMembers();
+    public Map<String, Object> showAllGoods(int page, int rows) {
+        PageHelper.startPage(page, rows);
+        List<Member> memberList = memberService.showAllMembers();
+        Map<String, Object> map = new HashMap<>();
+        map.put("total", memberService.countMember());
+        map.put("rows", memberList);
+        return map;
     }
 
+    @RequiresPermissions({"member:view"})
     @RequestMapping("/admin/member-info/index")
     public String showGoodsPage() throws IOException {
         return "member_info";
     }
 
+    @RequiresPermissions({"member:view", "member:add"})
     @RequestMapping("/admin/member-info/add")
     @ResponseBody
     public String add(Member member, @RequestParam("file") MultipartFile file) throws FileNotFoundException {
@@ -60,6 +72,7 @@ public class MemberController {
 
     }
 
+    @RequiresPermissions({"member:view", "member:update"})
     @RequestMapping("/admin/member-info/update")
     @ResponseBody
     public String update(Member member, @RequestParam("file") MultipartFile file) throws FileNotFoundException {
@@ -71,6 +84,7 @@ public class MemberController {
         }
     }
 
+    @RequiresPermissions({"member:view", "member:delete"})
     @RequestMapping("/admin/member-info/delete")
     @ResponseBody
     public String delete(String memberUuid){
@@ -83,6 +97,7 @@ public class MemberController {
         }
     }
 
+    @RequiresPermissions({"member:view"})
     @RequestMapping("/admin/member-info/search")
     @ResponseBody
     public List<Member> search(Member member){

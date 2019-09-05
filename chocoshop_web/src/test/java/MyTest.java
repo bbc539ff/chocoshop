@@ -102,4 +102,9 @@ public class MyTest {
             System.out.println(sysPermission);
         }
     }
+
+    @Test
+    public void selectAllAdmin(){
+        System.out.println(adminService.findAll());
+    }
 }

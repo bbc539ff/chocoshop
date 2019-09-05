@@ -35,10 +35,10 @@ public interface GoodsMapper extends tk.mybatis.mapper.common.Mapper<Goods> {
             "goods_status = #{goodsStatus}" +
             "</if>" +
             "<if test=\"goodsCreateTime != null\">" +
-            "AND goods_create_time = #{goodsCreateTime}" +
+            "AND DATE_FORMAT(goods_create_time, '%Y-%m-%d') =  DATE_FORMAT(#{goodsCreateTime}, '%Y-%m-%d')" +
             "</if>" +
             "<if test=\"goodsUpdateTime != null\">" +
-            "AND goods_update_time = #{goodsUpdateTime}" +
+            "AND DATE_FORMAT(goods_update_time, '%Y-%m-%d') =  DATE_FORMAT(#{goodsUpdateTime}, '%Y-%m-%d')" +
             "</if>" +
             "<if test=\"goodsDetail != null\">" +
             "AND goods_detail = #{goodsDetail}" +
@@ -62,4 +62,5 @@ public interface GoodsMapper extends tk.mybatis.mapper.common.Mapper<Goods> {
             @Result(property = "goodsDetailImageurl", column = "goods_detail_imageurl"),
     })
     List<Goods> search(Goods goods);
+
 }

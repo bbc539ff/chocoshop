@@ -14,19 +14,20 @@
 
    <body>
 
-      <table id="dg" title="Custom DataGrid Pager" data-options="rownumbers:true,singleSelect:true,pagination:true,url:'/admin/admin-info/list',method:'get'">
+      <table id="dg" data-options="rownumbers:true,singleSelect:true,pagination:true,url:'/admin/admin-info/list',method:'get'">
          <thead>
             <tr>
                <th field="adminId">ID</th>
                <th field="adminName">管理员名</th>
                <th field="adminNickname">昵称</th>
-               <th field="adminState">状态</th>
+               <th field="adminState" formatter="adminStateFormatter">状态</th>
                <th field="adminPhone">联系电话</th>
                <th field="adminEmail">电子邮箱</th>
-               <th field="adminCreateTime">注册时间</th>
-               <th field="adminUpdateTime">更新时间</th>
-               <th field="adminGender">性别</th>
+               <th field="adminCreateTime" formatter="dateFormatter">注册时间</th>
+               <th field="adminUpdateTime" formatter="dateFormatter">更新时间</th>
+               <th field="adminGender" formatter="adminGenderFormatter">性别</th>
                <th field="adminAddress">地址</th>
+               <th field="roleList" formatter="roleListFormatter">拥有角色</th>
             </tr>
          </thead>
       </table>
@@ -84,6 +85,10 @@
                   <td><span>地址: </span></td>
                   <td><input class="textbox" name="adminAddress"></td>
                </tr>
+               <tr>
+                  <td><span>拥有角色: </span></td>
+                  <td><input class="textbox" name="roleId"></td>
+               </tr>
             </table>
             <div style="padding:5px;text-align:center;">
                <a id="aSmt" class="easyui-linkbutton" icon="icon-ok">Ok</a>
@@ -106,13 +111,14 @@
             $('#adminUpdateTime').datetimebox('setValue', parseDate(new Date(row.adminUpdateTime)))
             $('input[name=adminGender]:checked').val(row.adminGender)
             $('input[name=adminAddress]').val(row.adminAddress)
+            $('input[name=roleId]').val(roleListFormatter(null ,row, null))
          }
-         
+
          // 删除
          function doDel() {
             var row = $('#dg').datagrid('getSelected');
             if(row) {
-               $.ajax('/admin/admin-info/delete?adminId='+row.adminId, {
+               $.ajax('/admin/admin-info/delete?adminId=' + row.adminId, {
                   success: function() {
                      $.messager.alert('Warning', '操作成功！delete');
                      $('#dg').datagrid('reload')
@@ -129,6 +135,32 @@
          $(function() {
             paginationConfig('admin', initEditFn, doDel)
          })
+
+         function adminGenderFormatter(value, row, rowIndex) {
+            if(value == true) {
+               return '男'
+            } else {
+               return '女'
+            }
+         }
+
+         function adminStateFormatter(value, row, rowIndex) {
+            if(value == true) {
+               return '可用'
+            } else {
+               return '不可用'
+            }
+         }
+
+         function roleListFormatter(value, row, rowIndex) {
+            var str = ''
+            if(row.roleList != undefined) {
+               for(var i = 0; i < row.roleList.length; i++) {
+                  str += row.roleList[i].roleId + ', '
+               }
+               return str
+            }
+         }
       </script>
 
    </body>

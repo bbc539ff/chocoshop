@@ -50,10 +50,10 @@ public interface AdminMapper extends tk.mybatis.mapper.common.Mapper<Admin> {
             "AND admin_email = #{adminEmail}" +
             "</if>" +
             "<if test=\"adminCreateTime != null\">" +
-            "AND admin_create_time = #{adminCreateTime}" +
+            "AND DATE_FORMAT(admin_create_time, '%Y-%m-%d') =  DATE_FORMAT(#{adminCreateTime}, '%Y-%m-%d')" +
             "</if>" +
             "<if test=\"adminUpdateTime != null\">" +
-            "AND admin_update_time = #{adminUpdateTime}" +
+            "AND DATE_FORMAT(admin_update_time, '%Y-%m-%d') =  DATE_FORMAT(#{adminUpdateTime}, '%Y-%m-%d')" +
             "</if>" +
             "<if test=\"adminGender != null\">" +
             "AND admin_gender = #{adminGender}" +
@@ -77,4 +77,24 @@ public interface AdminMapper extends tk.mybatis.mapper.common.Mapper<Admin> {
     })
     List<Admin> search(Admin admin);
 
+
+    @Select("SELECT * FROM cc_admin")
+    @Results({
+            @Result(property = "adminId", column = "admin_id"),
+            @Result(property = "adminName", column = "admin_name"),
+            @Result(property = "adminNickname", column = "admin_nickname"),
+            @Result(property = "adminPassword", column = "admin_password"),
+            @Result(property = "adminSalt", column = "admin_salt"),
+            @Result(property = "adminState", column = "admin_state"),
+            @Result(property = "adminPhone", column = "admin_phone"),
+            @Result(property = "adminEmail", column = "admin_email"),
+            @Result(property = "adminCreateTime", column = "admin_create_time"),
+            @Result(property = "adminUpdateTime", column = "admin_update_time"),
+            @Result(property = "adminGender", column = "admin_gender"),
+            @Result(property = "adminAddress", column = "admin_address"),
+            @Result(property = "adminPhoto", column = "admin_photo"),
+            @Result(property = "roleList", column = "admin_id", many = @Many(select = "com.chocoshop.mapper.SysRoleMapper.selectByAdminId"))
+    })
+    @Override
+    List<Admin> selectAll();
 }

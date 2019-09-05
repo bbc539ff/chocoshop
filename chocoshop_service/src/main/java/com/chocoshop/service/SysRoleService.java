@@ -19,13 +19,13 @@ public class SysRoleService {
     }
 
     @Transactional
-    public int addSysRole(SysRole sysRole, String permId) {
+    public int addSysRole(SysRole sysRole, String permIds) {
         int returnVal = 0;
         try {
             returnVal = sysRoleMapper.insert(sysRole);
             int roleId = sysRoleMapper.selectOne(sysRole).getRoleId();
-
-            String[] perms = permId.split(",");
+            System.out.println(permIds);
+            String[] perms = permIds.split(",");
             for(String id : perms){
                 returnVal = sysRoleMapper.insertPerm(roleId, Integer.parseInt(id.trim()));
             }
@@ -72,5 +72,31 @@ public class SysRoleService {
             e.printStackTrace();
         }
         return null;
+    }
+
+    public int countSysRole(){
+        return sysRoleMapper.selectCount(new SysRole());
+    }
+
+
+    @Transactional
+    public int addRoleToAdmin(String roleIds, Integer adminId){
+        try{
+            deleteRoleFromAdmin(adminId);
+
+            String[] roleIdsList = roleIds.split(",");
+            for(String roleId : roleIdsList){
+                if("".equals(roleId)) continue;
+                sysRoleMapper.addRoleToAdmin(Integer.parseInt(roleId), adminId);
+            }
+            return 1;
+        } catch (Exception e){
+            e.printStackTrace();
+        }
+        return 0;
+    }
+
+    public int deleteRoleFromAdmin(Integer adminId){
+        return sysRoleMapper.deleteRoleFromAdmin(adminId);
     }
 }

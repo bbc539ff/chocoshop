@@ -19,14 +19,14 @@
             <tr>
                <th field="orderUuid">uuid</th>
                <th field="orderPayment">实付金额</th>
-               <th field="orderPaymentType">支付方式</th>
-               <th field="orderStatus">订单状态</th>
-               <th field="orderCreateTime">创建时间</th>
-               <th field="orderUpdateTime">更新时间</th>
-               <th field="orderPaymentTime">支付时间</th>
-               <th field="orderConsignTime">到货时间</th>
-               <th field="orderEndTime">结束时间</th>
-               <th field="orderCloseTime">关闭时间</th>
+               <th field="orderPaymentType" formatter="orderPaymentTypeFormatter">支付方式</th>
+               <th field="orderStatus" formatter="orderStatusFormatter">订单状态</th>
+               <th field="orderCreateTime" formatter="dateFormatter">创建时间</th>
+               <th field="orderUpdateTime" formatter="dateFormatter">更新时间</th>
+               <th field="orderPaymentTime" formatter="dateFormatter">支付时间</th>
+               <th field="orderConsignTime" formatter="dateFormatter">到货时间</th>
+               <th field="orderEndTime" formatter="dateFormatter">结束时间</th>
+               <th field="orderCloseTime" formatter="dateFormatter">关闭时间</th>
                <th field="orderShippingCode">快递单号</th>
                <th field="memberUuid">会员uuid</th>
             </tr>
@@ -145,6 +145,36 @@
                })
             } else {
                $.messager.alert('Warning', '请先选择！');
+            }
+         }
+         
+         function orderPaymentTypeFormatter(value, index, row){
+            if(value == 0){
+               return '支付宝'
+            } 
+            if(value == 1){
+               return '微信'
+            }
+            if(value == 2){
+               return '货到付款'
+            }
+         }
+         
+         function orderStatusFormatter(value, index, row){
+            if(value == 0){
+               return '已创建'
+            } 
+            if(value == 1){
+               return '已支付'
+            }
+            if(value == 2){
+               return '已发货'
+            }
+            if(value == 3){
+               return '已签收'
+            } 
+            if(value == 4){
+               return '已关闭'
             }
          }
 
