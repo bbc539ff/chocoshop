@@ -34,7 +34,7 @@ public class MemberService {
 
         // set imgurl
 
-        String path = Utils.uploadSingle(file, "/upload/member/member_image/", member.getMemberUuid());
+        String path = Utils.uploadSingle(file, "/upload/member/member_image/", member.getMemberUuid(), false);
         member.setMemberImageurl(path);
 
 
@@ -57,7 +57,7 @@ public class MemberService {
             member.setMemberSalt(salt);
         }
         // set imgurl
-        String path = Utils.uploadSingle(file, "/upload/member/member_image", member.getMemberUuid());
+        String path = Utils.uploadSingle(file, "/upload/member/member_image", member.getMemberUuid(), false);
         member.setMemberImageurl(path);
 
         member.setMemberUpdateTime(new Date());

@@ -17,31 +17,31 @@ public interface MemberMapper extends tk.mybatis.mapper.common.Mapper<Member> {
             "member_uuid = #{memberUuid}" +
             "</if>" +
             "<if test=\"memberUserName != null\">" +
-            "AND member_user_name = #{memberUserName}" +
+            "AND member_user_name LIKE CONCAT('%', #{memberUserName}, '%')" +
             "</if>" +
             "<if test=\"memberPhone != null\">" +
-            "AND member_phone = #{memberPhone}" +
+            "AND member_phone LIKE CONCAT('%', #{memberPhone}, '%')" +
             "</if>" +
             "<if test=\"memberEmail != null\">" +
-            "member_email = #{memberEmail}" +
+            "member_email LIKE CONCAT('%', #{memberEmail}, '%')" +
             "</if>" +
             "<if test=\"memberCreateTime != null\">" +
-            "AND member_create_time = #{memberCreateTime}" +
+            "AND DATE_FORMAT(member_create_time, '%Y-%m-%d') =  DATE_FORMAT(#{memberCreateTime}, '%Y-%m-%d')" +
             "</if>" +
             "<if test=\"memberUpdateTime != null\">" +
-            "AND member_update_time = #{memberUpdateTime}" +
+            "AND DATE_FORMAT(member_update_time, '%Y-%m-%d') =  DATE_FORMAT(#{memberUpdateTime}, '%Y-%m-%d')" +
             "</if>" +
             "<if test=\"memberGender != null\">" +
             "member_gender = #{memberGender}" +
             "</if>" +
             "<if test=\"memberAddress != null\">" +
-            "AND member_address = #{memberAddress}" +
+            "AND member_address LIKE CONCAT('%', #{memberAddress}, '%')" +
             "</if>" +
             "<if test=\"memberState != null\">" +
-            "AND member_state = #{memberState}" +
+            "AND member_state LIKE CONCAT('%', #{memberState}, '%')" +
             "</if>" +
             "<if test=\"memberImageurl != null\">" +
-            "AND member_imageurl = #{memberImageurl}" +
+            "AND member_imageurl LIKE CONCAT('%', #{memberImageurl}, '%')" +
             "</if>" +
             "<if test=\"memberBalance != null\">" +
             "AND member_balance = #{memberBalance}" +

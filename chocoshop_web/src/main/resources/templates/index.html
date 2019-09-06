@@ -12,54 +12,62 @@
    </head>
 
    <body class="easyui-layout">
-      <div data-options="region:'north'" style="height:50px;background: white;">
-         <span>巧克力专营后台</span>
-         <span style="float:right;">巧克力专营</span>
-      </div>
-      <div data-options="region:'east'" style="width:100px;"></div>
-      <div data-options="region:'west'" style="width:200px;">
-         <div id="sm" class="easyui-sidemenu" data-options="data:data,onSelect:onSelect"></div>
-      </div>
-      <div data-options="region:'center'" style="background:#eee;">
-         <div id="div" style="width: 100%; height: 100%;margin: 0 0;">
-            <iframe id="main" src="/admin/admin-info/index" style="width: 100%; height: 100%;"></iframe>
+      <div class="easyui-layout" style="width:100%;height:100%;">
+         <div data-options="region:'north'" style="height:5%;background: #e0ecff;">
+            <span style="height: 35px; line-height: 35px;">巧克力专营后台</span>
+            <span style="float:right;height: 35px; line-height: 35px;">
+            当前管理员: <span id="admin_id" ></span>
+            <span><a href="/admin/logout">登出</a></span>
+            </span>
+         </div>
+         <div data-options="region:'east'" style="width:100px;"></div>
+         <div data-options="region:'west'" style="width:200px;">
+            <div id="sm" class="easyui-sidemenu" data-options="data:data,onSelect:onSelect"></div>
+         </div>
+         <div data-options="region:'center'" style="background:#eee;height:95%;">
+            <div id="div" style="width: 100%; height: 100%;margin: 0 0;">
+               <iframe id="main" src="/admin/admin-info/index" style="width: 100%; height: 100%;"></iframe>
+            </div>
          </div>
       </div>
-      </div>
       <script type="text/javascript">
-            var data = [{
-               text: '模块',
-               iconCls: 'icon-sum',
-               state: 'open',
-               children: [{
-                  id: 'admin',
-                  text: '管理员管理',
-               }, {
-                  id: 'goods',
-                  text: '商品管理'
-               }, {
-                  id: 'category',
-                  text: '分类管理'
-               }, {
-                  id: 'order',
-                  text: '订单管理'
-               }, {
-                  id: 'member',
-                  text: '会员管理'
-               }, {
-                  id: 'role',
-                  text: '角色管理'
-               }]
-            }];
-            
-            var onSelect = function(item) {
-               console.log(item.id)
-               $('#main').remove()
-               $("#div").append('<iframe id="main" src="/admin/'+item.id+'-info/index" style="width: 100%; height: 100%;"></iframe>')
-            }
-            
-            console.log(Cookies.get('name'))
-         </script>
+         var data = [{
+            text: '模块',
+            iconCls: 'icon-sum',
+            state: 'open',
+            children: [{
+               id: 'admin',
+               text: '管理员管理',
+            }, {
+               id: 'goods',
+               text: '商品管理'
+            }, {
+               id: 'category',
+               text: '分类管理'
+            }, {
+               id: 'order',
+               text: '订单管理'
+            }, {
+               id: 'member',
+               text: '会员管理'
+            }, {
+               id: 'role',
+               text: '角色管理'
+            }]
+         }];
+
+         var onSelect = function(item) {
+            console.log(item.id)
+            $('#main').remove()
+            $("#div").append('<iframe id="main" src="/admin/' + item.id + '-info/index" style="width: 100%; height: 100%;"></iframe>')
+         }
+
+         $(function() {
+            var adminName = Cookies.get('adminName')
+            var adminId = Cookies.get('adminId')
+            $('#admin_id').text(adminName)
+         })
+      </script>
    </body>
 
 </html>

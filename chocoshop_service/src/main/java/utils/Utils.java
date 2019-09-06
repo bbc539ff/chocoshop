@@ -14,13 +14,14 @@ import java.util.regex.Pattern;
 
 public class Utils {
 
-    public static String uploadSingle(MultipartFile file, String pathString, String fileName) {
+    public static String uploadSingle(MultipartFile file, String pathString, String fileName, boolean hasType) {
         if(!file.isEmpty() && file.getContentType().split("/")[0].equals("image")){
 
             try {
                 String imgUrlPrefix = pathString;
-                String imgUrlSuffix = fileName + "." + file.getContentType().split("/")[1];
-
+                String imgUrlSuffix = "";
+                if(!hasType) imgUrlSuffix = fileName + "." + file.getContentType().split("/")[1];
+                else imgUrlSuffix = fileName;
                 File upload = new File(ResourceUtils.getURL("classpath:").getPath(), "/static"+pathString);
                 if(!upload.exists()) upload.mkdirs();
                 String UPLOAD_FOLDER = upload.getAbsolutePath();

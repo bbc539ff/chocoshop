@@ -18,7 +18,7 @@ public interface CategoryMapper extends tk.mybatis.mapper.common.Mapper<Category
             "category_id = #{categoryId}" +
             "</if>" +
             "<if test=\"categoryName != null\">" +
-            "AND category_name = #{categoryName}" +
+            "AND category_name LIKE CONCAT('%', #{categoryName}, '%')" +
             "</if>" +
             "<if test=\"categoryParent != null\">" +
             "AND category_parent = #{categoryParent}" +

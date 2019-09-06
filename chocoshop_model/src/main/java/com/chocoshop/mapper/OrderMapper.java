@@ -27,22 +27,22 @@ public interface OrderMapper extends tk.mybatis.mapper.common.Mapper<Order> {
             "order_status = #{orderStatus}" +
             "</if>" +
             "<if test=\"orderCreateTime != null\">" +
-            "AND order_create_time = #{orderCreateTime}" +
+            "AND DATE_FORMAT(order_create_time, '%Y-%m-%d') =  DATE_FORMAT(#{orderCreateTime}, '%Y-%m-%d')" +
             "</if>" +
             "<if test=\"orderUpdateTime != null\">" +
-            "AND order_update_time = #{orderUpdateTime}" +
+            "AND DATE_FORMAT(order_update_time, '%Y-%m-%d') =  DATE_FORMAT(#{orderUpdateTime}, '%Y-%m-%d')" +
             "</if>" +
             "<if test=\"orderPaymentTime != null\">" +
-            "order_payment_time = #{orderPaymentTime}" +
+            "AND DATE_FORMAT(order_payment_time, '%Y-%m-%d') =  DATE_FORMAT(#{orderPaymentTime}, '%Y-%m-%d')" +
             "</if>" +
             "<if test=\"orderConsignTime != null\">" +
-            "AND order_consign_time = #{orderConsignTime}" +
+            "AND DATE_FORMAT(order_consign_time, '%Y-%m-%d') =  DATE_FORMAT(#{orderConsignTime}, '%Y-%m-%d')" +
             "</if>" +
             "<if test=\"orderEndTime != null\">" +
-            "AND order_end_time = #{orderEndTime}" +
+            "AND DATE_FORMAT(order_end_time, '%Y-%m-%d') =  DATE_FORMAT(#{orderEndTime}, '%Y-%m-%d')" +
             "</if>" +
             "<if test=\"orderCloseTime != null\">" +
-            "order_close_time = #{orderCloseTime}" +
+            "AND DATE_FORMAT(order_close_time, '%Y-%m-%d') =  DATE_FORMAT(#{orderCloseTime}, '%Y-%m-%d')" +
             "</if>" +
             "<if test=\"orderShippingCode != null\">" +
             "AND order_shipping_code = #{orderShippingCode}" +

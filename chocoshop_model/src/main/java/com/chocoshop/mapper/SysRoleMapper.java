@@ -63,6 +63,7 @@ public interface SysRoleMapper extends tk.mybatis.mapper.common.Mapper<SysRole> 
             @Result(property = "roleName", column = "role_name"),
             @Result(property = "roleAvailable", column = "role_available"),
             @Result(property = "roleDescription", column = "role_description"),
+            @Result(property = "permissions", column = "role_id", many = @Many(select = "com.chocoshop.mapper.SysPermissionMapper.selectByRoleId")),
     })
     List<SysRole> search(SysRole sysRole);
 

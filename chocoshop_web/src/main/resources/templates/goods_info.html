@@ -26,6 +26,8 @@
                <th field="goodsStatus" formatter="goodsStatusFormatter">状态</th>
                <th field="goodsCreateTime" formatter="dateFormatter">创建时间</th>
                <th field="goodsUpdateTime" formatter="dateFormatter">更新时间</th>
+               <th field="goods_show" formatter="goodsShowDetailFormatter">查看</th>
+               <th field="goods_detail" formatter="goodsDetailFormatter">编辑</th>
             </tr>
          </thead>
       </table>
@@ -63,11 +65,11 @@
                <tr>
                   <td><span>创建时间: </span></td>
                   <td>
-                     <input class="easyui-datetimebox" id="createTime" name="goodsCreateTime" data-options="required:true,showSeconds:true" style="width:150px">
+                     <input class="easyui-datetimebox" id="createTime" name="goodsCreateTime" data-options="showSeconds:true" style="width:150px">
                </tr>
                <tr>
                   <td><span>更新时间: </span></td>
-                  <td><input class="easyui-datetimebox" id="updateTime" name="goodsUpdateTime" data-options="required:true,showSeconds:true" style="width:150px"></td>
+                  <td><input class="easyui-datetimebox" id="updateTime" name="goodsUpdateTime" data-options="showSeconds:true" style="width:150px"></td>
                </tr>
 
             </table>
@@ -89,7 +91,7 @@
             $('input[name=goodsImageurl]').val(row.goodsImageurl)
             $('input[name=goodsStatus]').val(row.goodsStatus)
             $('#createTime').datetimebox('setValue', parseDate(new Date(row.goodsCreateTime)))
-            $('#createTime').datetimebox('setValue', parseDate(new Date(row.goodsUpdateTime)))
+            $('#updateTime').datetimebox('setValue', parseDate(new Date(row.goodsUpdateTime)))
          }
          
          // 删除
@@ -123,13 +125,21 @@
          	}
          });
          
-         function categoryIdFormatter(value, index, row){
+         function categoryIdFormatter(value, row, index){
             return categoryMap.get(value).categoryName
          }
          
-         function goodsStatusFormatter(value, index, row){
+         function goodsStatusFormatter(value, row, index){
             if(value == 0) return '下架'
             if(value == 1) return '在售'
+         }
+         
+         function goodsDetailFormatter(value, row, index){
+            return '<a href="/admin/goods-info/'+ row.goodsId +'/editor">编辑</a>'
+         }
+         
+         function goodsShowDetailFormatter(value, row, index){
+            return '<a href="/admin/goods-info/'+ row.goodsId +'/detail">查看</a>'
          }
          
 

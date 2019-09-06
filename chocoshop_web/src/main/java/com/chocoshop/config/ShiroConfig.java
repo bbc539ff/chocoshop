@@ -25,12 +25,14 @@ public class ShiroConfig {
         ShiroFilterFactoryBean shiroFilterFactoryBean = new ShiroFilterFactoryBean();
         shiroFilterFactoryBean.setSecurityManager(securityManager);
         //拦截器.
+
         Map<String,String> filterChainDefinitionMap = new LinkedHashMap<>();
         // 配置不会被拦截的链接 顺序判断
-        filterChainDefinitionMap.put("/static/**", "anon");
         filterChainDefinitionMap.put("/css/**", "anon");
         filterChainDefinitionMap.put("/js/**", "anon");
         filterChainDefinitionMap.put("/img/**", "anon");
+        filterChainDefinitionMap.put("/ueditor/**", "anon");
+        filterChainDefinitionMap.put("/favicon.ico", "anon");
         filterChainDefinitionMap.put("/admin/register", "anon");
         filterChainDefinitionMap.put("/admin/index", "user");
         //配置退出 过滤器,其中的具体的退出代码Shiro已经替我们实现了
@@ -45,7 +47,10 @@ public class ShiroConfig {
 
         //未授权界面;
         shiroFilterFactoryBean.setUnauthorizedUrl("/403");
+
+
         shiroFilterFactoryBean.setFilterChainDefinitionMap(filterChainDefinitionMap);
+
         return shiroFilterFactoryBean;
     }
 

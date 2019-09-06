@@ -4,6 +4,7 @@ import com.chocoshop.model.Admin;
 import com.chocoshop.service.AdminService;
 import com.chocoshop.service.SysRoleService;
 import com.github.pagehelper.PageHelper;
+import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -11,7 +12,9 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -95,8 +98,15 @@ public class AdminController {
 
 
     // 主页面
-    @RequestMapping("/admin/index")
-    public String index(){
+    @RequestMapping({"/admin/index", "/"})
+    public String index(HttpServletResponse response){
+        Admin admin = (Admin) SecurityUtils.getSubject().getPrincipal();
+        Integer adminId = admin.getAdminId();
+        String adminName = admin.getAdminName();
+        Cookie adminIdCookie = new Cookie("adminId", Integer.toString(adminId));
+        Cookie adminNameCookie = new Cookie("adminName", adminName);
+        response.addCookie(adminIdCookie);
+        response.addCookie(adminNameCookie);
         return "index";
     }
 

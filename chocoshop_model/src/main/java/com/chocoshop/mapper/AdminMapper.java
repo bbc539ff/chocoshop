@@ -35,19 +35,19 @@ public interface AdminMapper extends tk.mybatis.mapper.common.Mapper<Admin> {
             "admin_id = #{adminId}" +
             "</if>" +
             "<if test=\"adminName != null\">" +
-            "AND admin_name = #{adminName}" +
+            "AND admin_name LIKE CONCAT('%', #{adminName}, '%')" +
             "</if>" +
             "<if test=\"adminNickname != null\">" +
-            "AND admin_nickname = #{adminNickname}" +
+            "AND admin_nickname LIKE CONCAT('%', #{adminNickname}, '%')" +
             "</if>" +
             "<if test=\"adminState != null\">" +
-            "AND admin_state = #{adminState}" +
+            "AND admin_state LIKE CONCAT('%', #{adminState}, '%')" +
             "</if>" +
             "<if test=\"adminPhone != null\">" +
-            "AND admin_phone = #{adminPhone}" +
+            "AND admin_phone LIKE CONCAT('%', #{adminPhone}, '%')" +
             "</if>" +
             "<if test=\"adminEmail != null\">" +
-            "AND admin_email = #{adminEmail}" +
+            "AND admin_email LIKE CONCAT('%', #{adminEmail}, '%')" +
             "</if>" +
             "<if test=\"adminCreateTime != null\">" +
             "AND DATE_FORMAT(admin_create_time, '%Y-%m-%d') =  DATE_FORMAT(#{adminCreateTime}, '%Y-%m-%d')" +
@@ -59,7 +59,7 @@ public interface AdminMapper extends tk.mybatis.mapper.common.Mapper<Admin> {
             "AND admin_gender = #{adminGender}" +
             "</if>" +
             "<if test=\"adminAddress != null\">" +
-            "AND admin_address = #{adminAddress}" +
+            "AND admin_address LIKE CONCAT('%', #{adminAddress}, '%')" +
             "</if>" +
             "</where>" +
             "</script>")
