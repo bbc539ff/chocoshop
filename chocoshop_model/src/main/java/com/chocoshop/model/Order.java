@@ -23,6 +23,7 @@ public class Order implements Serializable {
     private Date orderCloseTime;
     private String orderShippingCode;
     private String memberUuid;
+    private String orderGoodsList;
 
     public String getOrderUuid() {
         return orderUuid;
@@ -120,6 +121,14 @@ public class Order implements Serializable {
         this.memberUuid = memberUuid;
     }
 
+    public String getOrderGoodsList() {
+        return orderGoodsList;
+    }
+
+    public void setOrderGoodsList(String orderGoodsList) {
+        this.orderGoodsList = orderGoodsList;
+    }
+
     @Override
     public String toString() {
         return "Order{" +
@@ -135,6 +144,7 @@ public class Order implements Serializable {
                 ", orderCloseTime=" + orderCloseTime +
                 ", orderShippingCode='" + orderShippingCode + '\'' +
                 ", memberUuid='" + memberUuid + '\'' +
+                ", orderGoodsList='" + orderGoodsList + '\'' +
                 '}';
     }
 }

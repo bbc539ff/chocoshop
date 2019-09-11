@@ -21,16 +21,18 @@ public class GoodsService {
     }
 
     public int addGoods(Goods goods, MultipartFile[] files) {
-        goodsMapper.insert(goods);
-        Long goodsId = goodsMapper.selectOne(goods).getGoodsId();
-        String path = "";
-        for(int i = 0;i<files.length;i++) {
-            path += Utils.uploadSingle(files[i], "/upload/goods/"+goodsId+"/", Integer.toString(i), false)+", ";
+        try{
+            goodsMapper.insert(goods);
+            Long goodsId = goodsMapper.selectOne(goods).getGoodsId();
+            System.out.println(goodsId);
+            goods = new Goods();
+            goods.setGoodsId(goodsId);
+            return updateGoods(goods, files);
+        } catch (Exception e){
+            e.printStackTrace();
         }
-        goods.setGoodsImageurl(path);
+        return 0;
 
-        System.out.println(goods);
-        return goodsMapper.updateByPrimaryKeySelective(goods);
     }
 
     public int deleteGoods(Goods goods){
@@ -81,5 +83,9 @@ public class GoodsService {
         Goods goods = new Goods();
         goods.setGoodsId(goodsId);
         return goodsMapper.selectOne(goods).getGoodsDetail();
+    }
+
+    public Goods getGoodsById(Long goodsId){
+        return goodsMapper.selectByPrimaryKey(goodsId);
     }
 }

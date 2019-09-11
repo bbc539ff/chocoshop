@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org" 
+      xmlns:shiro="http://www.pollix.at/thymeleaf/shiro" >
 
    <head>
       <meta charset="UTF-8">
@@ -26,7 +27,7 @@
          </div>
          <div data-options="region:'center'" style="background:#eee;height:95%;">
             <div id="div" style="width: 100%; height: 100%;margin: 0 0;">
-               <iframe id="main" src="/admin/admin-info/index" style="width: 100%; height: 100%;"></iframe>
+               <iframe id="main" src="/admin/main" style="width: 100%; height: 100%;"></iframe>
             </div>
          </div>
       </div>
@@ -35,27 +36,50 @@
             text: '模块',
             iconCls: 'icon-sum',
             state: 'open',
-            children: [{
-               id: 'admin',
-               text: '管理员管理',
-            }, {
+            children: []
+         }];
+      </script>
+      
+      <script shiro:hasPermission="admin:view">
+         data[0].children.push({
+            id: 'admin',
+            text: '管理员管理',
+         })
+      </script>
+      <script shiro:hasPermission="goods:view">
+         data[0].children.push({
                id: 'goods',
                text: '商品管理'
-            }, {
+            })
+      </script>
+      <script shiro:hasPermission="category:view">
+         data[0].children.push({
                id: 'category',
                text: '分类管理'
-            }, {
+            })
+      </script>
+      <script shiro:hasPermission="order:view">
+         data[0].children.push({
                id: 'order',
                text: '订单管理'
-            }, {
+            })
+      </script>
+               id: 'member',
+      <script shiro:hasPermission="admin:view">
+         data[0].children.push({
                id: 'member',
                text: '会员管理'
-            }, {
+            })
+      </script>
+      
+      <script shiro:hasPermission="role:view">
+         data[0].children.push({
                id: 'role',
                text: '角色管理'
-            }]
-         }];
-
+            })
+      </script>
+         
+      <script type="text/javascript">
          var onSelect = function(item) {
             console.log(item.id)
             $('#main').remove()
@@ -68,6 +92,7 @@
             $('#admin_id').text(adminName)
          })
       </script>
+      
    </body>
 
 </html>

@@ -11,10 +11,14 @@
         <module name="chocoshop_model" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="chocoshop_portal_web" target="1.8" />
+    </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
       <module name="chocoshop_model" options="-parameters" />
+      <module name="chocoshop_portal_web" options="-parameters" />
       <module name="chocoshop_service" options="-parameters" />
       <module name="chocoshop_web" options="-parameters" />
     </option>

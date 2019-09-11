@@ -144,5 +144,8 @@ public class AdminController {
         return "redirect:/admin/login";
     }
 
-
+    @RequestMapping(path = "/admin/main")
+    public String mainPage(){
+        return "main";
+    }
 }

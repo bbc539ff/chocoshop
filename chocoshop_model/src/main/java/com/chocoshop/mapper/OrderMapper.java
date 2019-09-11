@@ -50,6 +50,9 @@ public interface OrderMapper extends tk.mybatis.mapper.common.Mapper<Order> {
             "<if test=\"memberUuid != null\">" +
             "AND member_uuid = #{memberUuid}" +
             "</if>" +
+            "<if test=\"orderGoodsList != null\">" +
+            "AND order_goods_list LIKE CONCAT('%, ', #{orderGoodsList}, '/%')" +
+            "</if>" +
             "</where>" +
             "</script>")
     @Results({
@@ -65,6 +68,7 @@ public interface OrderMapper extends tk.mybatis.mapper.common.Mapper<Order> {
             @Result(property = "orderCloseTime", column = "order_close_time"),
             @Result(property = "orderShippingCode", column = "order_shipping_code"),
             @Result(property = "memberUuid", column = "member_uuid"),
+            @Result(property = "orderGoodsList", column = "order_goods_list"),
     })
     List<Order> search(Order order);
 }

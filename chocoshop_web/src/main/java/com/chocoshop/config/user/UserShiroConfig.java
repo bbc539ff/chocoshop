@@ -1,7 +1,8 @@
-package com.chocoshop.config;
+package com.chocoshop.config.user;
 
 import at.pollux.thymeleaf.shiro.dialect.ShiroDialect;
 import com.chocoshop.realm.LoginRealm;
+import com.chocoshop.realm.user.UserLoginRealm;
 import org.apache.shiro.authc.credential.HashedCredentialsMatcher;
 import org.apache.shiro.codec.Base64;
 import org.apache.shiro.mgt.SecurityManager;
@@ -19,10 +20,9 @@ import java.util.Map;
 import java.util.Properties;
 
 @Configuration
-public class ShiroConfig {
+public class UserShiroConfig {
     @Bean
     public ShiroFilterFactoryBean shiroFilter(SecurityManager securityManager) {
-        System.out.println("ShiroConfiguration.shirFilter()");
         ShiroFilterFactoryBean shiroFilterFactoryBean = new ShiroFilterFactoryBean();
         shiroFilterFactoryBean.setSecurityManager(securityManager);
         //拦截器.
@@ -34,21 +34,20 @@ public class ShiroConfig {
         filterChainDefinitionMap.put("/img/**", "anon");
         filterChainDefinitionMap.put("/ueditor/**", "anon");
         filterChainDefinitionMap.put("/favicon.ico", "anon");
-        filterChainDefinitionMap.put("/admin/register", "anon");
-        filterChainDefinitionMap.put("/admin/index", "user");
+        filterChainDefinitionMap.put("/user/register", "anon");
+        filterChainDefinitionMap.put("/user/index", "user");
         //配置退出 过滤器,其中的具体的退出代码Shiro已经替我们实现了
-        filterChainDefinitionMap.put("/admin/logout", "logout");
+        filterChainDefinitionMap.put("/user/logout", "logout");
         //<!-- 过滤链定义，从上向下顺序执行，一般将/**放在最为下边 -->:这是一个坑呢，一不小心代码就不好使了;
         //<!-- authc:所有url都必须认证通过才可以访问; anon:所有url都都可以匿名访问-->
-        filterChainDefinitionMap.put("/admin/**", "authc");
+        filterChainDefinitionMap.put("/user/**", "authc");
         // 如果不设置默认会自动寻找Web工程根目录下的"/login.jsp"页面
-        shiroFilterFactoryBean.setLoginUrl("/admin/login");
+        shiroFilterFactoryBean.setLoginUrl("/user/login");
         // 登录成功后要跳转的链接
-        shiroFilterFactoryBean.setSuccessUrl("/admin/index");
+        shiroFilterFactoryBean.setSuccessUrl("/user/index");
 
         //未授权界面;
         shiroFilterFactoryBean.setUnauthorizedUrl("/403");
-
 
         shiroFilterFactoryBean.setFilterChainDefinitionMap(filterChainDefinitionMap);
 
@@ -70,10 +69,10 @@ public class ShiroConfig {
     }
 
     @Bean
-    public LoginRealm myShiroRealm(){
-        LoginRealm loginRealm = new LoginRealm();
-        loginRealm.setCredentialsMatcher(hashedCredentialsMatcher());
-        return loginRealm;
+    public UserLoginRealm myShiroRealm(){
+        UserLoginRealm userLoginRealm = new UserLoginRealm();
+        userLoginRealm.setCredentialsMatcher(hashedCredentialsMatcher());
+        return userLoginRealm;
     }
 
 

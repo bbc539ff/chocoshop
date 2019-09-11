@@ -22,6 +22,12 @@ public class MemberService {
         return memberMapper.selectAll();
     }
 
+    public Member findByMemberName(String memberUserName){
+        Member member = new Member();
+        member.setMemberUserName(memberUserName);
+        return memberMapper.selectOne(member);
+    }
+
     public int addMember(Member member, MultipartFile file){
         member.setMemberUuid(UUID.randomUUID().toString());
         if(member.getMemberPassword() != null) {
