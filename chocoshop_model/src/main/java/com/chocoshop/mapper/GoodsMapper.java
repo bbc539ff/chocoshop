@@ -1,10 +1,7 @@
 package com.chocoshop.mapper;
 
 import com.chocoshop.model.Goods;
-import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Result;
-import org.apache.ibatis.annotations.Results;
-import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.*;
 
 import java.util.List;
 
@@ -63,4 +60,9 @@ public interface GoodsMapper extends tk.mybatis.mapper.common.Mapper<Goods> {
     })
     List<Goods> search(Goods goods);
 
+    @Insert("INSERT INTO cc_goods " +
+            "(goods_title, category_id, goods_price, goods_number, goods_imageurl, goods_status, goods_create_time, goods_update_time, goods_detail, goods_detail_imageurl) " +
+            "VALUES(#{goodsTitle}, #{categoryId}, #{goodsPrice}, #{goodsNumber}, #{goodsImageurl}, #{goodsStatus}, #{goodsCreateTime}, #{goodsUpdateTime}, #{goodsDetail}, #{goodsDetailImageurl})")
+    @SelectKey(statement="select LAST_INSERT_ID()", keyProperty="goodsId", before=false, resultType=Long.class)
+    Long insertGoods(Goods goods);
 }

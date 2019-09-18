@@ -29,6 +29,7 @@
                <th field="orderCloseTime" formatter="dateFormatter">关闭时间</th>
                <th field="orderShippingCode">快递单号</th>
                <th field="memberUuid">会员uuid</th>
+               <th field="orderGoodsList">商品清单</th>
             </tr>
          </thead>
       </table>
@@ -104,6 +105,10 @@
                   <td><span>会员uuid: </span></td>
                   <td><input class="textbox" name="memberUuid"></td>
                </tr>
+               <tr>
+                  <td><span>商品清单: </span></td>
+                  <td><input class="textbox" name="orderGoodsList"></td>
+               </tr>
             </table>
             <div style="padding:5px;text-align:center;">
                <a id="aSmt" class="easyui-linkbutton" icon="icon-ok">Ok</a>
@@ -127,6 +132,7 @@
             $('#orderCloseTime').datetimebox('setValue', parseDate(new Date(row.orderCloseTime)))
             $('input[name=orderShippingCode]').val(row.orderShippingCode)
             $('input[name=memberUuid]').val(row.memberUuid)
+            $('input[name=orderGoodsList]').val(row.orderGoodsList)
          }
 
 

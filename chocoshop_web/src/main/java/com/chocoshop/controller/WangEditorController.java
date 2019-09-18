@@ -30,7 +30,7 @@ public class WangEditorController {
             Goods goods = new Goods();
             goods.setGoodsId(goodsId);
             goods.setGoodsDetail(data);
-            goodsService.updateGoods(goods, null);
+            goodsService.updateGoodsDetail(goods, null);
             return "succcess";
         } catch (Exception e){
             e.printStackTrace();

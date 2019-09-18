@@ -23,7 +23,7 @@ public class KaptchaFilter implements Filter {
         String sessVerifyCode  = (String) httpServletRequest.getSession().getAttribute(Constants.KAPTCHA_SESSION_KEY);
         System.out.println("sessVerifyCode-->"+sessVerifyCode);
 
-        String reqVerifyCode = httpServletRequest.getParameter("verifyCode");
+        String reqVerifyCode = httpServletRequest.getParameter(Constants.KAPTCHA_SESSION_KEY);
         if(sessVerifyCode!=null && sessVerifyCode.equals(reqVerifyCode)){
             chain.doFilter(request, response);
         } else {

@@ -44,7 +44,10 @@
                </tr>
                <tr>
                   <td><span>分类: </span></td>
-                  <td><input class="textbox" name="categoryId"></td>
+                  <td>
+                     <select id="cc" name="categoryId" class="easyui-combobox" style="width:150px">
+                     </select>
+                  </td>
                </tr>
                <tr>
                   <td><span>价格: </span></td>
@@ -92,6 +95,7 @@
             $('input[name=goodsStatus]').val(row.goodsStatus)
             $('#createTime').datetimebox('setValue', parseDate(new Date(row.goodsCreateTime)))
             $('#updateTime').datetimebox('setValue', parseDate(new Date(row.goodsUpdateTime)))
+            
          }
          
          // 删除
@@ -121,7 +125,10 @@
          	success: function(data){
          	   for(var i = 0;i<data.rows.length;i++){
          	      categoryMap.set(data.rows[i].categoryId, data.rows[i])
+         	      
+         	      if(data.rows[i].categoryParent != 0) $('#cc').append('<option value="' + data.rows[i].categoryId + '">' + data.rows[i].categoryName + '</option>')
          	   }
+                $.parser.parse()
          	}
          });
          

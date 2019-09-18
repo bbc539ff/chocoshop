@@ -5,6 +5,7 @@ import com.chocoshop.mapper.GoodsMapper;
 import com.chocoshop.model.Goods;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 import utils.Utils;
 
@@ -22,10 +23,10 @@ public class GoodsService {
 
     public int addGoods(Goods goods, MultipartFile[] files) {
         try{
-            goodsMapper.insert(goods);
-            Long goodsId = goodsMapper.selectOne(goods).getGoodsId();
-            System.out.println(goodsId);
+            goodsMapper.insertGoods(goods);
+            Long goodsId = goods.getGoodsId();
             goods = new Goods();
+            System.out.println(goodsId);
             goods.setGoodsId(goodsId);
             return updateGoods(goods, files);
         } catch (Exception e){
@@ -40,14 +41,15 @@ public class GoodsService {
     }
 
     public int updateGoods(Goods goods, MultipartFile[] files){
-        if(files != null){
+        System.out.println(files[0].getOriginalFilename());
+        if(!"".equals(files[0].getOriginalFilename().trim())){
             Long goodsId = goods.getGoodsId();
             String path = "";
             for(int i = 0;i<files.length;i++) {
                 path += Utils.uploadSingle(files[i], "/upload/goods/"+goodsId, Integer.toString(i), false)+", ";
             }
             goods.setGoodsImageurl(path);
-        }
+        } else goods.setGoodsImageurl(null);
 
         System.out.println(goods);
         return goodsMapper.updateByPrimaryKeySelective(goods);
