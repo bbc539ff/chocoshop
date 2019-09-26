@@ -42,6 +42,8 @@ public class WangEditorController {
     @ResponseBody
     public String submit(@PathVariable Long goodsId){
         String data = goodsService.findByGoodsId(goodsId);
+        if(data == null) data = "";
+        data = "<button class=\"easyui-linkbutton\" style=\"background-color: #e0ecff;\" onclick=\"history.go(-1)\">返回</button>" + data;
         return data;
     }
 

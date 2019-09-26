@@ -44,22 +44,35 @@
                         </td>
                      </tr>
                      <tr>
-                        <td>记住我:</td>
-                        <td><input class="easyui-checkbox" type="checkbox" name="rememberMe"></input></td>
+                        <td></td>
+                        <td><input class="easyui-textbox" id="kaptchaId" name="verifyCode" type="text" data-options="required:true"></input>
+                        </td>
                      </tr>
                      <tr>
-                        <td></td>
-                        <td><input class="easyui-textbox" id="kaptchaId" name="KAPTCHA_SESSION_KEY" type="text" data-options="required:true"></input>
+                        <td>记住我:</td>
+                        <td><input class="easyui-checkbox" type="checkbox" name="rememberMe"></input>
                         </td>
                      </tr>
 
                   </table>
                   <div style="text-align:center;padding:5px">
-                     <button class="easyui-linkbutton" type="submit">Submit</button>
+                     <button id="loginButton" class="easyui-linkbutton" type="submit">Submit</button>
                      <a href="javascript:void(0)" class="easyui-linkbutton" onclick="clearForm()">Clear</a><br />
                      <a href="register.html">Register</a>
                   </div>
                </form>
+
+               <script>
+                  $('#ff').form({
+                     url: '/admin/login',
+                     onSubmit: function() {
+                        return $(this).form('validate');
+                     },
+                     success: function(){
+                        location.href = '/admin/index'
+                     }
+                  });
+               </script>
 
             </div>
          </div>

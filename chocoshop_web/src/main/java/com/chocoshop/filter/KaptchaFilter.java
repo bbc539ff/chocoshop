@@ -20,10 +20,11 @@ public class KaptchaFilter implements Filter {
             return;
         }
 
-        String sessVerifyCode  = (String) httpServletRequest.getSession().getAttribute(Constants.KAPTCHA_SESSION_KEY);
+        String sessVerifyCode  = (String) httpServletRequest.getSession().getAttribute("verifyCode");
         System.out.println("sessVerifyCode-->"+sessVerifyCode);
 
-        String reqVerifyCode = httpServletRequest.getParameter(Constants.KAPTCHA_SESSION_KEY);
+        String reqVerifyCode = httpServletRequest.getParameter("verifyCode");
+        System.out.println("parmVerifyCode-->"+reqVerifyCode);
         if(sessVerifyCode!=null && sessVerifyCode.equals(reqVerifyCode)){
             chain.doFilter(request, response);
         } else {

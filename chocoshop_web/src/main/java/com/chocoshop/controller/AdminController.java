@@ -10,6 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.Cookie;
@@ -119,7 +121,10 @@ public class AdminController {
 
     // 登录失败处理
     @RequestMapping(path = "/admin/login", method = RequestMethod.POST)
-    public String login(HttpServletRequest request, Admin admin) {
+    public String login(HttpServletRequest request, @Validated Admin admin, BindingResult bindingResult) {
+        if(bindingResult.hasErrors()){
+            return "/admin/login";
+        }
         System.out.println("ctrl:login()"+admin);
         String exception = (String) request.getAttribute("shiroLoginFailure");
         String msg = "";

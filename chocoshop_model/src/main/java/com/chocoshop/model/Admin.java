@@ -1,6 +1,11 @@
 package com.chocoshop.model;
 
+import org.hibernate.validator.constraints.Length;
+
 import javax.persistence.*;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
@@ -13,16 +18,22 @@ public class Admin implements Serializable {
     @Id
     private Integer adminId;
     @Column(unique = true)
+    @Length(min = 6, max = 18)
     private String adminName;//帐号
+    @Length(min = 6, max = 18)
     private String adminNickname;//名称（昵称或者真实姓名，不同系统不同定义）
+    @Length(min = 6, max = 18)
     private String adminPassword; //密码;
     private String adminSalt;//加密密码的盐
     private Boolean adminState;//用户状态,0:创建未认证（比如没有激活，没有输入验证码等等）--等待验证的用户 , 1:正常状态,2：用户被锁定.
+    @Length(min = 11, max = 11)
     private String adminPhone;
+    @Email
     private String adminEmail;
     private Date adminCreateTime;
     private Date adminUpdateTime;
     private Boolean adminGender;
+    @Max(64)
     private String adminAddress;
     private String adminPhoto;
 

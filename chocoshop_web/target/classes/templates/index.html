@@ -1,6 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" 
-      xmlns:shiro="http://www.pollix.at/thymeleaf/shiro" >
+<html xmlns:th="http://www.thymeleaf.org" xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
 
    <head>
       <meta charset="UTF-8">
@@ -21,13 +20,12 @@
             <span><a href="/admin/logout">登出</a></span>
             </span>
          </div>
-         <div data-options="region:'east'" style="width:100px;"></div>
-         <div data-options="region:'west'" style="width:200px;">
-            <div id="sm" class="easyui-sidemenu" data-options="data:data,onSelect:onSelect"></div>
+         <div data-options="region:'west'" style="width:200px; overflow: hidden;">
+            <div id="sm" class="easyui-sidemenu" data-options="data:data,onSelect:openTab"></div>
          </div>
-         <div data-options="region:'center'" style="background:#eee;height:95%;">
-            <div id="div" style="width: 100%; height: 100%;margin: 0 0;">
-               <iframe id="main" src="/admin/main" style="width: 100%; height: 100%;"></iframe>
+         <div data-options="region:'center'" style="background:#eee;height:95%;overflow: hidden;">
+            <div id="tabs" class="easyui-tabs" style="width: 100%; height: 100%;margin: 0 0;">
+
             </div>
          </div>
       </div>
@@ -39,7 +37,7 @@
             children: []
          }];
       </script>
-      
+
       <script shiro:hasPermission="admin:view">
          data[0].children.push({
             id: 'admin',
@@ -48,37 +46,37 @@
       </script>
       <script shiro:hasPermission="goods:view">
          data[0].children.push({
-               id: 'goods',
-               text: '商品管理'
-            })
+            id: 'goods',
+            text: '商品管理'
+         })
       </script>
       <script shiro:hasPermission="category:view">
          data[0].children.push({
-               id: 'category',
-               text: '分类管理'
-            })
+            id: 'category',
+            text: '分类管理'
+         })
       </script>
       <script shiro:hasPermission="order:view">
          data[0].children.push({
-               id: 'order',
-               text: '订单管理'
-            })
+            id: 'order',
+            text: '订单管理'
+         })
       </script>
-               id: 'member',
+      id: 'member',
       <script shiro:hasPermission="admin:view">
          data[0].children.push({
-               id: 'member',
-               text: '会员管理'
-            })
+            id: 'member',
+            text: '会员管理'
+         })
       </script>
-      
+
       <script shiro:hasPermission="role:view">
          data[0].children.push({
-               id: 'role',
-               text: '角色管理'
-            })
+            id: 'role',
+            text: '角色管理'
+         })
       </script>
-         
+
       <script type="text/javascript">
          var onSelect = function(item) {
             console.log(item.id)
@@ -86,13 +84,38 @@
             $("#div").append('<iframe id="main" src="/admin/' + item.id + '-info/index" style="width: 100%; height: 100%;"></iframe>')
          }
 
+         function openTab(item) {
+            var url = '/admin/' + item.id + '-info/index'
+            var text = item.text
+            console.log(url)
+            var content = '<iframe scrolling="auto" frameborder="0"  src="' + url + '" style="width:100%;height:100%;"></iframe>';
+            // 添加一个未选中状态的选项卡面板,具体参考Easyui table 选项卡
+            if($("#tabs").tabs('exists', text)) {
+               $('#tabs').tabs('select', text);
+            } else {
+               $('#tabs').tabs('add', {
+                  title: text,
+                  closable: true,
+                  content: content
+               });
+            }
+         }
+
          $(function() {
             var adminName = Cookies.get('adminName')
             var adminId = Cookies.get('adminId')
             $('#admin_id').text(adminName)
+
+            // main page tabs
+            var content = '<iframe scrolling="auto" frameborder="0"  src="/admin/main" style="width:100%;height:100%;"></iframe>'
+            $('#tabs').tabs('add', {
+               title: '首页',
+               closable: false,
+               content: content
+            });
          })
       </script>
-      
+
    </body>
 
 </html>

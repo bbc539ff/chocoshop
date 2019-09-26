@@ -33,7 +33,7 @@ public class KaptchaController {
         httpServletResponse.setHeader("Pragma", "no-cache");
         httpServletResponse.setContentType("image/jpeg");
         String capText = defaultKaptcha.createText();
-        httpServletRequest.getSession().setAttribute(Constants.KAPTCHA_SESSION_KEY, capText);
+        httpServletRequest.getSession().setAttribute("verifyCode", capText);
         BufferedImage bi = defaultKaptcha.createImage(capText);
         System.out.println(capText);
         ServletOutputStream out = httpServletResponse.getOutputStream();
