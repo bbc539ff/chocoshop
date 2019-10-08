@@ -55,8 +55,15 @@ public class AdminController {
     @ResponseBody
     public String add(Admin admin, String roleId){
         System.out.println(admin);
-        if(adminService.addAdmin(admin) == 1){
-            sysRoleService.addRoleToAdmin(roleId, admin.getAdminId());
+        int adminId = -1;
+        try{
+            adminId = adminService.addAdmin(admin);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        System.out.println(adminId);
+        if(adminId == 1){
+            sysRoleService.addRoleByNameToAdmin(roleId, admin.getAdminId());
             return "success";
         } else{
             return "error";
@@ -68,7 +75,7 @@ public class AdminController {
     @ResponseBody
     public String update(Admin admin, String roleId){
         if(adminService.updateAdmin(admin) == 1){
-            sysRoleService.addRoleToAdmin(roleId, admin.getAdminId());
+            sysRoleService.addRoleByNameToAdmin(roleId, admin.getAdminId());
             return "success";
         } else{
             return "error";
@@ -100,7 +107,7 @@ public class AdminController {
 
 
     // 主页面
-    @RequestMapping({"/admin/index", "/"})
+    @RequestMapping({"/admin/index", ""})
     public String index(HttpServletResponse response){
         Admin admin = (Admin) SecurityUtils.getSubject().getPrincipal();
         Integer adminId = admin.getAdminId();
@@ -146,6 +153,12 @@ public class AdminController {
     @RequestMapping(path = "/admin/register", method = RequestMethod.POST)
     public String register(Admin admin){
         adminService.addAdmin(admin);
+        return "redirect:/admin/login";
+    }
+
+    @RequestMapping(path = "/admin/logout")
+    public String logout(){
+        SecurityUtils.getSubject().logout();
         return "redirect:/admin/login";
     }
 

@@ -14,8 +14,8 @@
    <body class="easyui-layout">
       <div class="easyui-layout" style="width:100%;height:100%;">
          <div data-options="region:'north'" style="height:5%;background: #e0ecff;">
-            <span style="height: 35px; line-height: 35px;">巧克力专营后台</span>
-            <span style="float:right;height: 35px; line-height: 35px;">
+            <span style="height: 35px; line-height: 35px; margin-left: 20px;">巧克力专营后台</span>
+            <span style="float:right;height: 35px; line-height: 35px; margin-right: 20px;">
             当前管理员: <span id="admin_id" ></span>
             <span><a href="/admin/logout">登出</a></span>
             </span>
@@ -63,7 +63,7 @@
          })
       </script>
       id: 'member',
-      <script shiro:hasPermission="admin:view">
+      <script shiro:hasPermission="member:view">
          data[0].children.push({
             id: 'member',
             text: '会员管理'

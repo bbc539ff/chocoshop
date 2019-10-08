@@ -96,6 +96,26 @@ public class SysRoleService {
         return 0;
     }
 
+    @Transactional
+    public int addRoleByNameToAdmin(String roleName, Integer adminId){
+        try{
+            deleteRoleFromAdmin(adminId);
+
+            String[] roleNamesList = roleName.split(",");
+            for(String name : roleNamesList){
+                if("".equals(name)) continue;
+                SysRole sysRole = new SysRole();
+                sysRole.setRoleName(name.trim());
+                Integer roleId = sysRoleMapper.selectOne(sysRole).getRoleId();
+                sysRoleMapper.addRoleToAdmin(roleId, adminId);
+            }
+            return 1;
+        } catch (Exception e){
+            e.printStackTrace();
+        }
+        return 0;
+    }
+
     public int deleteRoleFromAdmin(Integer adminId){
         return sysRoleMapper.deleteRoleFromAdmin(adminId);
     }

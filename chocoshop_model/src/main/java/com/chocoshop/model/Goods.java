@@ -4,6 +4,7 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.Date;
 
 @Entity
@@ -13,7 +14,7 @@ public class Goods implements Serializable {
     private Long goodsId;
     private String goodsTitle;
     private Long categoryId;
-    private Double goodsPrice;
+    private BigDecimal goodsPrice;
     private Integer goodsNumber;
     private String goodsImageurl;
     private Integer goodsStatus;
@@ -46,11 +47,11 @@ public class Goods implements Serializable {
         this.categoryId = categoryId;
     }
 
-    public Double getGoodsPrice() {
+    public BigDecimal getGoodsPrice() {
         return goodsPrice;
     }
 
-    public void setGoodsPrice(Double goodsPrice) {
+    public void setGoodsPrice(BigDecimal goodsPrice) {
         this.goodsPrice = goodsPrice;
     }
 

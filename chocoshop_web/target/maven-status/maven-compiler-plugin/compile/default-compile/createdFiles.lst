@@ -1,0 +1,17 @@
+com\chocoshop\controller\CategoryController.class
+com\chocoshop\controller\TestController.class
+com\chocoshop\controller\GoodsController.class
+com\chocoshop\controller\WangEditorController.class
+com\chocoshop\controller\AdminController.class
+com\chocoshop\filter\XssFilter.class
+com\chocoshop\controller\MemberController.class
+com\chocoshop\controller\WangEditorController$UploadStatusJson.class
+com\chocoshop\controller\OrderController.class
+com\chocoshop\controller\SysPermissionController.class
+com\chocoshop\config\ShiroConfig.class
+com\chocoshop\config\KaptchaConfig.class
+com\chocoshop\Application.class
+com\chocoshop\controller\KaptchaController.class
+com\chocoshop\realm\LoginRealm.class
+com\chocoshop\filter\KaptchaFilter.class
+com\chocoshop\controller\SysRoleController.class

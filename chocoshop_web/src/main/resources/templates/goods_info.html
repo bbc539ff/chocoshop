@@ -20,7 +20,7 @@
                <th field="goodsId">ID</th>
                <th field="goodsTitle">标题</th>
                <th field="categoryId" formatter="categoryIdFormatter">分类</th>
-               <th field="goodsPrice">价格</th>
+               <th field="goodsPrice" formatter="goodsPriceFormatter">价格</th>
                <th field="goodsNumber">库存</th>
                <th field="goodsImageurl" formatter="goodsImageurlFormatter">图片</th>
                <th field="goodsStatus" formatter="goodsStatusFormatter">状态</th>
@@ -159,6 +159,10 @@
             }
             
             return content
+         }
+         
+         function goodsPriceFormatter(value, row, index){
+            return parseFloat(row.goodsPrice).toFixed(2)
          }
          
 

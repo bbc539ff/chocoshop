@@ -36,7 +36,9 @@ public class AdminService {
         if(admin.getAdminCreateTime() != null) admin.setAdminCreateTime(new Date());
         if(admin.getAdminUpdateTime() != null) admin.setAdminUpdateTime(new Date());
         System.out.println(admin);
-        return adminMapper.insert(admin);
+        int adminId = adminMapper.insertOne(admin);
+        System.out.println(adminId);
+        return adminId;
     }
 
     public int deleteAdmin(Admin admin){

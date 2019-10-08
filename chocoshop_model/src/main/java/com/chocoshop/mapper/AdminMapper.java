@@ -97,4 +97,8 @@ public interface AdminMapper extends tk.mybatis.mapper.common.Mapper<Admin> {
     })
     @Override
     List<Admin> selectAll();
+
+    @Insert("INSERT INTO cc_admin VALUE (#{adminId}, #{adminName}, #{adminNickname}, #{adminPassword}, #{adminSalt}, #{adminState}, #{adminPhone}, #{adminEmail}, #{adminCreateTime}, #{adminUpdateTime}, #{adminGender}, #{adminAddress}, #{adminPhoto})")
+    @SelectKey(statement="select LAST_INSERT_ID()", keyProperty="adminId", before=false, resultType=Integer.class)
+    int insertOne(Admin record);
 }
