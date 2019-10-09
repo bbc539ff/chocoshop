@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html>
+
+   <head>
+      <meta charset="UTF-8">
+      <title></title>
+      <link rel="stylesheet" type="text/css" href="/css/easyui.css">
+      <link rel="stylesheet" type="text/css" href="/css/icon.css">
+      <script type="text/javascript" src="/js/jquery.min.js"></script>
+      <script type="text/javascript" src="/js/jquery.easyui.min.js"></script>
+      <script type="text/javascript" src="/js/jquery.form.min.js"></script>
+      <script type="text/javascript" src="/js/chocoUtils.js"></script>
+   </head>
+
+   <body>
+
+      <table id="dg" title="Custom DataGrid Pager" data-options="rownumbers:true,singleSelect:true,pagination:true,url:'/admin/member-info/list',method:'get'">
+         <thead>
+            <tr>
+               <th field="memberUuid">UUID</th>
+               <th field="memberUserName">会员名</th>
+               <th field="memberPhone">手机号码</th>
+               <th field="memberEmail">电子邮箱</th>
+               <th field="memberCreateTime" formatter="dateFormatter">注册时间</th>
+               <th field="memberUpdateTime" formatter="dateFormatter">更新时间</th>
+               <th field="memberGender" formatter="memberGenderFormatter">性别</th>
+               <th field="memberAddress">地址</th>
+               <th field="memberState" formatter="memberStateFormatter">用户状态</th>
+               <th field="memberImageurl" formatter="memberImageurlFormatter">头像url</th>
+               <th field="memberBalance">电子钱包</th>
+            </tr>
+         </thead>
+      </table>
+      <div id="addWin" class="easyui-window" title="Login" closed="true" style="width:300px;height:400px;">
+         <form id="formAddEdit" method="post" enctype="multipart/form-data">
+            <table>
+               <tr style="display: none;">
+                  <td><span>uuid: </span></td>
+                  <td><input class="textbox" name="memberUuid"></td>
+               </tr>
+               <tr>
+                  <td><span>会员名: </span></td>
+                  <td><input class="textbox" name="memberUserName"></td>
+               </tr>
+               <tr>
+                  <td><span>密码: </span></td>
+                  <td><input class="textbox" name="memberPassword"></td>
+               </tr>
+               <tr>
+                  <td><span>手机号码: </span></td>
+                  <td><input class="textbox" name="memberPhone"></td>
+               </tr>
+               <tr>
+                  <td><span>电子邮箱: </span></td>
+                  <td>
+                     <input class="textbox" name="memberEmail" />
+                  </td>
+               </tr>
+               <tr>
+                  <td><span>创建时间: </span></td>
+                  <td>
+                     <input class="easyui-datetimebox" id="memberCreateTime" name="memberCreateTime" data-options="required:true,showSeconds:true" style="width:150px">
+                  </td>
+               </tr>
+               <tr>
+                  <td><span>更新时间: </span></td>
+                  <td>
+                     <input class="easyui-datetimebox" id="memberUpdateTime" name="memberUpdateTime" data-options="showSeconds:true" style="width:150px">
+                  </td>
+               </tr>
+               <tr>
+                  <td><span>性别: </span></td>
+                  <td>
+                     <input type="radio" name="memberGender" value="0"><span>女</span><br/>
+                     <input type="radio" name="memberGender" value="1"><span>男</span><br/>
+                  </td>
+               </tr>
+
+               <tr>
+                  <td><span>地址: </span></td>
+                  <td><input class="textbox" name="memberAddress"></td>
+               </tr>
+               <tr>
+                  <td><span>用户状态: </span></td>
+                  <td>
+                     <input type="radio" name="memberState" value="0"><span>已停用</span><br/>
+                     <input type="radio" name="memberState" value="1"><span>已启用</span><br/>
+                  </td>
+               </tr>
+               <tr>
+                  <td><span>头像url: </span></td>
+                  <td><input class="easyui-filebox" name="file"></td>
+               </tr>
+               <tr>
+                  <td><span>电子钱包: </span></td>
+                  <td><input class="textbox" name="memberBalance"></td>
+               </tr>
+            </table>
+            <div style="padding:5px;text-align:center;">
+               <a id="aSmt" class="easyui-linkbutton" icon="icon-ok">Ok</a>
+               <a href="#" class="easyui-linkbutton" icon="icon-cancel" onclick="$('#addWin').window('close');">Cancel</a>
+            </div>
+         </form>
+      </div>
+
+      </div>
+      <script type="text/javascript">
+         function initEditFn(row) {
+            $('input[name=memberUuid]').val(row.memberUuid)
+            $('input[name=memberUserName]').val(row.memberUserName)
+            $('input[name=memberPhone]').val(row.memberPhone)
+            $('input[name=memberEmail]').val(row.memberEmail)
+            $('#memberCreateTime').datetimebox('setValue', parseDate(new Date(row.memberCreateTime)))
+            $('#memberUpdateTime').datetimebox('setValue', parseDate(new Date(row.memberUpdateTime)))
+            $('input[name=memberGender]:checked').val(row.memberGender)
+            $('input[name=memberAddress]').val(row.memberAddress)
+            $('input[name=memberState]:checked').val(row.memberState)
+            $('input[name=memberBalance]').val(row.memberBalance)
+         }
+
+         // 删除
+         function doDel() {
+            var row = $('#dg').datagrid('getSelected');
+            if(row) {
+               $.ajax('/admin/member-info/delete?memberUuid=' + row.memberUuid, {
+                  success: function() {
+                     $.messager.alert('Warning', '操作成功！delete');
+                     $('#dg').datagrid('reload')
+                  },
+                  error: function() {
+                     $.messager.alert('Warning', '操作失败！delete');
+                  }
+               })
+            } else {
+               $.messager.alert('Warning', '请先选择！');
+            }
+         }
+
+         function memberGenderFormatter(value, index, row) {
+            if(value == true) {
+               return '男'
+            } else {
+               return '女'
+            }
+         }
+
+         function memberStateFormatter(value, index, row) {
+            if(value == 0) {
+               return '不可用'
+            }
+            if(value == 1) {
+               return '可用'
+            }
+         }
+         
+         function memberImageurlFormatter(value, row, index){
+            var content = '<img src="' + row.memberImageurl.trim() + '" style="width: 50px; height: 50px" />'
+            return content
+         }
+
+         $(function() {
+            paginationConfig('member', initEditFn, doDel)
+         })
+      </script>
+
+   </body>
+
+</html>

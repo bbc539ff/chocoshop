@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+
+   <head>
+      <meta charset="UTF-8">
+      <title></title>
+      <link rel="stylesheet" type="text/css" href="/css/easyui.css">
+      <link rel="stylesheet" type="text/css" href="/css/icon.css">
+      <script type="text/javascript" src="/js/jquery.min.js"></script>
+      <script type="text/javascript" src="/js/jquery.easyui.min.js"></script>
+      <script type="text/javascript" src="/js/jquery.form.min.js"></script>
+      <script type="text/javascript" src="/js/chocoUtils.js"></script>
+   </head>
+
+   <body>
+
+      <table id="dg" title="Custom DataGrid Pager" data-options="
+         rownumbers:true,
+         singleSelect:true,
+         pagination:true,
+         url:'/admin/category-info/list',
+         method: 'get' ">
+         <thead>
+            <tr>
+               <th field="categoryId">ID</th>
+               <th field="categoryName">分类名</th>
+               <th field="categoryParent">上级分类</th>
+            </tr>
+         </thead>
+      </table>
+      <div id="addWin" class="easyui-window" title="Login" closed="true" style="width:300px;height:400px;">
+         <form id="formAddEdit" method="post">
+            <table>
+               <tr style="display: none;">
+                  <td><span>ID: </span></td>
+                  <td><input class="textbox" name="categoryId"></td>
+               </tr>
+               <tr>
+                  <td><span>分类名: </span></td>
+                  <td><input class="textbox" name="categoryName"></td>
+               </tr>
+               <tr>
+                  <td><span>上级分类: </span></td>
+                  <td><input class="textbox" name="categoryParent"></td>
+               </tr>
+            </table>
+            <div style="padding:5px;text-align:center;">
+               <a id="aSmt" class="easyui-linkbutton" icon="icon-ok">Ok</a>
+               <a href="#" class="easyui-linkbutton" icon="icon-cancel" onclick="$('#addWin').window('close');">Cancel</a>
+            </div>
+         </form>
+      </div>
+
+      </div>
+      <script type="text/javascript">
+         function initEditFn(row) {
+            $('input[name=categoryId]').val(row.categoryId)
+            $('input[name=categoryName]').val(row.categoryName)
+            $('input[name=categoryParent]').val(row.categoryParent)
+         }
+         
+         // 删除
+         function doDel() {
+            var row = $('#dg').datagrid('getSelected');
+            if(row) {
+               $.ajax('/admin/category-info/delete?categoryId='+row.categoryId, {
+                  success: function() {
+                     $.messager.alert('Warning', '操作成功！delete');
+                     $('#dg').datagrid('reload')
+                  },
+                  error: function() {
+                     $.messager.alert('Warning', '操作失败！delete');
+                  }
+               })
+            } else {
+               $.messager.alert('Warning', '请先选择！');
+            }
+         }
+
+
+         $(function() {
+            paginationConfig('category', initEditFn, doDel)
+         })
+      </script>
+
+   </body>
+
+</html>

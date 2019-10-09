@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+
+   <head>
+      <meta charset="UTF-8">
+      <title>wangEditor demo</title>
+      <script type="text/javascript" src="/js/jquery.min.js"></script>
+      <script type="text/javascript" src="/js/wangEditor.min.js"></script>
+      <script src='/js/xss.min.js'></script>
+   </head>
+
+   <body>
+      <div id="editor">
+
+      </div>
+      <button onclick="editorSubmit()">提交</button>
+
+      <script type="text/javascript">
+         var E = window.wangEditor
+         var editor = new E('#editor')
+//       editor.customConfig.uploadImgShowBase64 = true
+         editor.customConfig.uploadImgServer = 'upload'
+         editor.customConfig.uploadFileName = 'files'
+         editor.customConfig.debug = true
+         editor.create()
+
+         $.ajax({
+            type: "get",
+            url: "detail",
+            async: false,
+            success: function(data) {
+               editor.txt.html(data)
+            }
+         });
+
+         function editorSubmit() {
+            var html = editor.txt.html()
+            $.ajax({
+               type: "post",
+               data: {
+                  "data": html
+               },
+               url: "submit",
+               async: true,
+               success: function() {
+                  location.href = "../index"
+               }
+            });
+         }
+      </script>
+   </body>
+
+</html>

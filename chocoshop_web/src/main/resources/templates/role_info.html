@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html>
+
+   <head>
+      <meta charset="UTF-8">
+      <title></title>
+      <link rel="stylesheet" type="text/css" href="/css/easyui.css">
+      <link rel="stylesheet" type="text/css" href="/css/icon.css">
+      <script type="text/javascript" src="/js/jquery.min.js"></script>
+      <script type="text/javascript" src="/js/jquery.easyui.min.js"></script>
+      <script type="text/javascript" src="/js/jquery.form.min.js"></script>
+      <script type="text/javascript" src="/js/chocoUtils.js"></script>
+   </head>
+
+   <body>
+
+      <table id="dg" title="Custom DataGrid Pager" data-options="
+         rownumbers:true,
+         singleSelect:true,
+         pagination:true,
+         url:'/admin/role-info/list',
+         method: 'get' ">
+         <thead>
+            <tr>
+               <th field="roleId" sortable="true">ID</th>
+               <th field="roleName" sortable="true">角色名</th>
+               <th field="roleAvailable" sortable="true" formatter="roleAvailableFormatter">角色状态</th>
+               <th field="roleDescription" sortable="true">角色描述</th>
+               <th field="permName" formatter="permNameFormatter">权限名</th>
+            </tr>
+         </thead>
+      </table>
+      <div id="addWin" class="easyui-window" title="Login" closed="true" style="width:300px;height:400px;">
+         <form id="formAddEdit" method="post">
+            <table>
+               <tr style="display: none;">
+                  <td><span>ID: </span></td>
+                  <td><input class="textbox" name="roleId"></td>
+               </tr>
+               <tr>
+                  <td><span>角色名: </span></td>
+                  <td><input class="textbox" name="roleName"></td>
+               </tr>
+               <tr>
+                  <td><span>角色状态: </span></td>
+                  <td>
+                     <input type="radio" name="roleAvailable" value="0"><span>不可用</span><br/>
+                     <input type="radio" name="roleAvailable" value="1"><span>可用</span><br/>
+                  </td>
+               </tr>
+               <tr>
+                  <td><span>角色描述: </span></td>
+                  <td><input class="textbox" name="roleDescription"></td>
+               </tr>
+               <tr>
+                  <td><span>权限ID: </span></td>
+                  <td>
+                     <td><input class="textbox" id="permIds" name="permIds" style="display: none;" /></td>
+                     <ul id="permsTree" class="easyui-tree" checkbox="true">
+                        <li data-options="state:'closed'">
+                           <span>管理员</span>
+                           <ul>
+                              <li id="1"><span>管理员查看</span></li>
+                              <li id="2"><span>管理员添加</span></li>
+                              <li id="3"><span>管理员删除</span></li>
+                              <li id="4"><span>管理员更新</span></li>
+                           </ul>
+                        </li>
+                        <li data-options="state:'closed'">
+                           <span>会员</span>
+                           <ul>
+                              <li id="5"><span>会员查看</span></li>
+                              <li id="6"><span>会员添加</span></li>
+                              <li id="7"><span>会员删除</span></li>
+                              <li id="8"><span>会员更新</span></li>
+                           </ul>
+                        </li>
+                        <li data-options="state:'closed'">
+                           <span>订单</span>
+                           <ul>
+                              <li id="9"><span>订单查看</span></li>
+                              <li id="10"><span>订单添加</span></li>
+                              <li id="11"><span>订单删除</span></li>
+                              <li id="12"><span>订单更新</span></li>
+                           </ul>
+                        </li>
+                        <li data-options="state:'closed'">
+                           <span>商品</span>
+                           <ul>
+                              <li id="13"><span>商品查看</span></li>
+                              <li id="14"><span>商品添加</span></li>
+                              <li id="15"><span>商品删除</span></li>
+                              <li id="16"><span>商品更新</span></li>
+                           </ul>
+                        </li>
+                        <li data-options="state:'closed'">
+                           <span>角色</span>
+                           <ul>
+                              <li id="17"><span>角色查看</span></li>
+                              <li id="18"><span>角色添加</span></li>
+                              <li id="19"><span>角色删除</span></li>
+                              <li id="20"><span>角色更新</span></li>
+                           </ul>
+                        </li>
+                        <li data-options="state:'closed'">
+                           <span>权限</span>
+                           <ul>
+                              <li id="21"><span>权限查看</span></li>
+                              <li id="22"><span>权限添加</span></li>
+                              <li id="23"><span>权限删除</span></li>
+                              <li id="24"><span>权限更新</span></li>
+                           </ul>
+                        </li>
+                        <li data-options="state:'closed'">
+                           <span>分类</span>
+                           <ul>
+                              <li id="25"><span>分类查看</span></li>
+                              <li id="26"><span>分类添加</span></li>
+                              <li id="27"><span>分类删除</span></li>
+                              <li id="28"><span>分类更新</span></li>
+                           </ul>
+                        </li>
+                     </ul>
+                  </td>
+               </tr>
+            </table>
+            <div style="padding:5px;text-align:center;">
+               <a id="aSmt" class="easyui-linkbutton" icon="icon-ok">Ok</a>
+               <a href="#" class="easyui-linkbutton" icon="icon-cancel" onclick="$('#addWin').window('close');">Cancel</a>
+            </div>
+         </form>
+      </div>
+
+      </div>
+      <script type="text/javascript">
+         function initEditFn(row) {
+            $('input[name=roleId]').val(row.roleId)
+            $('input[name=roleName]').val(row.roleName)
+            $('input[name=roleAvailable]').val(row.roleAvailable)
+            $('input[name=roleDescription]').val(row.roleDescription)
+            $('input[name=permIds]').val(permIdFormatter(null, row, null))
+
+            var root = $('#permsTree').tree('getRoot')
+            for(var i = 0; i < row.permissions.length; i++) {
+               $("#permsTree").tree('check', $('#permsTree').tree('find', row.permissions[i].permId).target)
+            }
+         }
+
+         // 删除
+         function doDel() {
+            var row = $('#dg').datagrid('getSelected');
+            if(row) {
+               $.ajax('/admin/role-info/delete?roleId=' + row.roleId, {
+                  success: function() {
+                     $.messager.alert('Warning', '操作成功！delete');
+                     $('#dg').datagrid('reload')
+                  },
+                  error: function() {
+                     $.messager.alert('Warning', '操作失败！delete');
+                  }
+               })
+            } else {
+               $.messager.alert('Warning', '请先选择！');
+            }
+         }
+
+         function permIdFormatter(value, row, rowIndex) {
+            var str = ""
+            if(row.permissions != undefined) {
+               for(var i = 0; i < row.permissions.length; i++) {
+                  str += row.permissions[i].permId + ", "
+               }
+               return str
+            }
+         }
+
+         function permAvailableFormatter(value, row, rowIndex) {
+            var str = ""
+            if(row.permissions != undefined) {
+               for(var i = 0; i < row.permissions.length; i++) {
+                  str += row.permissions[i].permAvailable + ", "
+               }
+               return str
+            }
+         }
+
+         function permNameFormatter(value, row, rowIndex) {
+
+            var map = new Map()
+            if(row.permissions != undefined) {
+               for(var i = 0; i < row.permissions.length; i++) {
+                  var tmp = row.permissions[i].permString.split(":")
+                  
+                  var str = "";
+                  if(map.get(tmp[0]) != undefined) str = map.get(tmp[0])
+                  if(tmp[1] == 'add') str += '增'
+                  if(tmp[1] == 'view') str += '查'
+                  if(tmp[1] == 'update') str += '改'
+                  if(tmp[1] == 'delete') str += '删'
+                  map.set(tmp[0], str)
+               }
+               var str = ''
+               map.forEach(function(value, key){
+                  str += key+': '+value+', '
+               })
+               return str
+            }
+         }
+
+         function permStringFormatter(value, row, rowIndex) {
+            var str = ''
+            if(row.permissions != undefined) {
+               for(var i = 0; i < row.permissions.length; i++) {
+                  str += row.permissions[i].permString + ', '
+               }
+               return str
+            }
+         }
+
+         function roleAvailableFormatter(value, row, rowIndex) {
+            if(value == 0) {
+               return '不可用'
+            }
+            if(value == 1) {
+               return '可用'
+            }
+         }
+
+         function getChecked() {
+            var nodes = $('#permsTree').tree('getChecked');
+            var s = '';
+            for(var i = 0; i < nodes.length; i++) {
+               if(nodes[i].id == undefined) continue
+               if(s != '') s += ', ';
+               s += nodes[i].id;
+            }
+            console.log(s)
+            $('#permIds').val(s)
+         }
+
+         $(function() {
+            paginationConfig('role', initEditFn, doDel)
+            $('#aSmt').click(function(){
+               getChecked()
+            })
+         })
+      </script>
+
+   </body>
+
+</html>
